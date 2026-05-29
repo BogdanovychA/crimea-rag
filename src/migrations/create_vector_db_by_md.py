@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import shutil
 
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
@@ -13,6 +14,12 @@ logger = logging.getLogger(__name__)
 
 
 def main():
+    if app.settings.database_dir.exists():
+        logger.info(f"Видалення існуючої бази знань з {app.settings.database_dir}...")
+        try:
+            shutil.rmtree(app.settings.database_dir)
+        except Exception as e:
+            logger.error(f"Не вдалося видалити директорію бази знань: {e}")
 
     logger.info("Завантаження Markdown файлів...")
     documents = []
@@ -20,8 +27,9 @@ def main():
         if path.is_file():
             try:
                 text = path.read_text(encoding="utf-8")
+                relative_path = path.relative_to(app.settings.content_dir)
                 documents.append(
-                    Document(page_content=text, metadata={"source": str(path)})
+                    Document(page_content=text, metadata={"source": str(relative_path)})
                 )
             except Exception as e:
                 logger.exception(f"Помилка читання файлу {path}: {e}")
