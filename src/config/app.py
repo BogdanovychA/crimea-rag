@@ -46,7 +46,7 @@ class Settings(BaseSettings):
         return self.parent_dir / self.www_project_name / self.www_content_dir_name
 
     llm_model: str = "mxbai-embed-large"
-    llm_url: str = "http://crimea"
+    llm_url: str = "http://127.0.0.1"
     llm_port: int = 11434
 
     batch_size: int = 50
