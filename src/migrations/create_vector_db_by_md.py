@@ -40,8 +40,8 @@ def main():
 
     logger.info("Зв'язок з Ollama та створення векторів...")
     embeddings = OllamaEmbeddings(
-        model=app.settings.llm_model,
-        base_url=f"{app.settings.llm_url}:{app.settings.llm_port}",
+        model=app.settings.embed_model,
+        base_url=f"{app.settings.embed_url}:{app.settings.embed_port}",
         mirostat=0,
         mirostat_eta=0.0,
         mirostat_tau=0.0,
