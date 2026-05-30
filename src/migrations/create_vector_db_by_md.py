@@ -19,7 +19,7 @@ def main():
         try:
             shutil.rmtree(app.settings.database_dir)
         except Exception as e:
-            logger.error(f"Не вдалося видалити директорію бази знань: {e}")
+            logger.exception(f"Не вдалося видалити директорію бази знань: {e}")
 
     logger.info("Завантаження Markdown файлів...")
     documents = []
