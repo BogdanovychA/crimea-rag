@@ -13,6 +13,7 @@ dependencies = [
     "langchain-chroma==1.1.0",
     "langchain-core==1.4.0",
     "langchain-ollama==1.1.0",
+    "langchain-openai==1.2.2",
     "openai==2.38.0",
     "pydantic==2.13.4",
     "pydantic-settings==2.14.1",

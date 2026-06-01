@@ -5,9 +5,11 @@ import logging
 
 import chainlit as cl
 
+from abstract.embed_manager import EmbedManager
+from abstract.llm_manager import LLMManager
 from chainlit_app.utils.models import PandorasBox
-from config import lapathoniia, server
-from core.lapathoniia_manager import LapathoniiaManager
+from config import server
+from core.langchain_manager import get_rag_chain
 
 logging.basicConfig(
     level=server.settings.logging_level,
@@ -17,28 +19,39 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
 
+system_prompt = """
+Ти — помічник-знавець бази знань. Твоє завдання — відповідати на запитання,
+спираючись виключно на наданий контекст. Якщо в контексті немає відповіді,
+так і скажи, що не знаєш, не намагайся вигадувати відповідь.\n\n
+Також надай посилання на джерело інформації.\n
+Коли надаєш посилання на джерело:\n
+* додай префікс: "https://crimea-is-ukraine.org/"\n
+* видали суфікс: "index.md".\n
+Джерело має виглядати як посилання на сайт.\n\n
+Контекст для аналізу:\n
+{context}\n\n
+Запитання користувача:\n{question}
+"""
+
+embed_manager = EmbedManager()
+llm_manager = LLMManager.get_manager()
+
 
 @cl.on_chat_start
 async def start():
 
-    system_prompt = """
-    Ти — помічник-знавець бази знань. Твоє завдання — відповідати на запитання,
-    спираючись виключно на наданий контекст. Якщо в контексті немає відповіді,
-    так і скажи, що не знаєш, не намагайся вигадувати відповідь.\n\n
-    Контекст для аналізу:\n
-    {context}\n\n
-    Запитання користувача: {question}
-    """
-
     box = PandorasBox(
-        l9a=LapathoniiaManager(**lapathoniia.settings.model_dump()),
-        system_prompt=system_prompt,
+        rag_chain=get_rag_chain(
+            system_prompt=system_prompt,
+            retriever=embed_manager.get_retriever(5),
+            llm=llm_manager,
+        ),
     )
 
     cl.user_session.set("box", box)
 
     hello_text = """
-    Привіт! Я штучний інтелект. Можеш поставити мені будь-яке питання
+    Привіт! Я штучний інтелект. Можеш поставити мені будь-яке запитання
     щодо контенту сайту "Крим - це Україна" (https://crimea-is-ukraine.org)
     """
 
@@ -63,15 +76,19 @@ async def main(message: cl.Message):
 
     box = cl.user_session.get("box")
 
-    request = await rag_search(content)
+    try:
+        stream = box.rag_chain.astream(content)
 
-    msg = cl.Message(content="")
-    await msg.send()
+        msg = cl.Message(content="")
+        await msg.send()
 
-    stream = box.l9a.query(box.system_prompt, request)
+        async for chunk in stream:
+            await asyncio.sleep(0.05)
+            await msg.stream_token(chunk)
 
-    async for chunk in stream:
-        await asyncio.sleep(0.05)
-        await msg.stream_token(chunk)
+        await msg.update()
 
-    await msg.update()
+    except Exception as e:
+        logger.exception("Unexpected error: %s", e)
+        text = "Неочікувана помилка. Повідомте розробника."
+        await cl.Message(content=text).send()
