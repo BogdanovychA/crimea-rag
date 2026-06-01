@@ -39,9 +39,10 @@ def main():
     chunks = text_splitter.split_documents(documents)
 
     logger.info("Зв'язок з Ollama та створення векторів...")
+    port_suffix = f":{app.settings.embed_port}" if app.settings.embed_port else ""
     embeddings = OllamaEmbeddings(
         model=app.settings.embed_model,
-        base_url=f"{app.settings.embed_url}:{app.settings.embed_port}",
+        base_url=f"{app.settings.embed_url}{port_suffix}",
         mirostat=0,
         mirostat_eta=0.0,
         mirostat_tau=0.0,

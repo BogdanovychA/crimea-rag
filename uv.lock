@@ -679,7 +679,7 @@ requires-dist = [
     { name = "langchain-chroma", specifier = "==1.1.0" },
     { name = "langchain-core", specifier = "==1.4.0" },
     { name = "langchain-ollama", specifier = "==1.1.0" },
-    { name = "langchain-openai", specifier = ">=1.2.2" },
+    { name = "langchain-openai", specifier = "==1.2.2" },
     { name = "openai", specifier = "==2.38.0" },
     { name = "pydantic", specifier = "==2.13.4" },
     { name = "pydantic-settings", specifier = "==2.14.1" },

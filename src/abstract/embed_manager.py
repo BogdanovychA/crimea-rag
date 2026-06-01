@@ -20,9 +20,10 @@ class BaseEmbedManager(ABC):
 class EmbedManager(BaseEmbedManager):
     def __init__(self) -> None:
 
+        port_suffix = f":{app.settings.embed_port}" if app.settings.embed_port else ""
         self.client = ChromaManager(
             model=app.settings.embed_model,
-            base_url=f"{app.settings.embed_url}:{app.settings.embed_port}",
+            base_url=f"{app.settings.embed_url}{port_suffix}",
             persist_directory=app.settings.database_dir,
             k=3,
         )

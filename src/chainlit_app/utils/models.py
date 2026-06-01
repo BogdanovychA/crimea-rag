@@ -5,7 +5,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from langchain_core.runnables.base import RunnableSequence
+    from langchain_core.runnables.base import RunnableSerializable
+    from langchain_core.vectorstores.base import VectorStoreRetriever
 
 
 from dataclasses import dataclass
@@ -15,4 +16,5 @@ from dataclasses import dataclass
 class PandorasBox:
     """Контейнер для зберігання основних об'єктів та стану застосунку"""
 
-    rag_chain: RunnableSequence
+    retriever: VectorStoreRetriever
+    chain: RunnableSerializable

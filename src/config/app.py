@@ -39,7 +39,7 @@ class Settings(BaseSettings):
 
     embed_model: str = ""
     embed_url: str = ""
-    embed_port: int = ""
+    embed_port: int | None = None
 
     batch_size: int = 50
 

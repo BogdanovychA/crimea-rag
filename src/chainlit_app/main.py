@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 
-import asyncio
 import logging
 
 import chainlit as cl
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 
 from abstract.embed_manager import EmbedManager
 from abstract.llm_manager import LLMManager
 from chainlit_app.utils.models import PandorasBox
 from config import server
-from core.langchain_manager import get_rag_chain
+from core.langchain_manager import format_docs
 
 logging.basicConfig(
     level=server.settings.logging_level,
@@ -23,15 +24,12 @@ system_prompt = """
 Ти — помічник-знавець бази знань. Твоє завдання — відповідати на запитання,
 спираючись виключно на наданий контекст. Якщо в контексті немає відповіді,
 так і скажи, що не знаєш, не намагайся вигадувати відповідь.\n\n
-Також надай посилання на джерело інформації.\n
-Коли надаєш посилання на джерело:\n
-* додай префікс: "https://crimea-is-ukraine.org/"\n
-* видали суфікс: "index.md".\n
-Джерело має виглядати як посилання на сайт.\n\n
 Контекст для аналізу:\n
 {context}\n\n
 Запитання користувача:\n{question}
 """
+
+prompt = ChatPromptTemplate.from_template(system_prompt)
 
 embed_manager = EmbedManager()
 llm_manager = LLMManager.get_manager()
@@ -40,12 +38,11 @@ llm_manager = LLMManager.get_manager()
 @cl.on_chat_start
 async def start():
 
+    user_chain = prompt | llm_manager | StrOutputParser()
+
     box = PandorasBox(
-        rag_chain=get_rag_chain(
-            system_prompt=system_prompt,
-            retriever=embed_manager.get_retriever(5),
-            llm=llm_manager,
-        ),
+        retriever=embed_manager.get_retriever(),
+        chain=user_chain,
     )
 
     cl.user_session.set("box", box)
@@ -56,12 +53,6 @@ async def start():
     """
 
     await cl.Message(content=hello_text).send()
-
-
-@cl.step(type="tool")
-async def rag_search(request: str):
-    await asyncio.sleep(3)
-    return request
 
 
 @cl.on_message
@@ -77,14 +68,55 @@ async def main(message: cl.Message):
     box = cl.user_session.get("box")
 
     try:
-        stream = box.rag_chain.astream(content)
+        # Пошук у базі знань через крок chainlit
+        async with cl.Step(name="Пошук у базі знань") as step:
+            docs = await cl.make_async(box.retriever.invoke)(content)
+            step.output = f"Знайдено {len(docs)} релевантних фрагментів у базі знань."
+
+        # Формування контексту
+        formatted_context = format_docs(docs)
+
+        stream = box.chain.astream({"context": formatted_context, "question": content})
 
         msg = cl.Message(content="")
         await msg.send()
 
         async for chunk in stream:
-            await asyncio.sleep(0.05)
             await msg.stream_token(chunk)
+
+        # Створення інтерактивних джерел для інтерфейсу Chainlit
+        elements = []
+        seen_sources = set()
+        source_links = []
+
+        for doc in docs:
+            source = doc.metadata.get("source", "")
+            if not source:
+                continue
+            clean_name = source.replace("index.md", "").strip("/")
+            if not clean_name:
+                clean_name = "Головна"
+
+            url = f"https://crimea-is-ukraine.org/{source.replace('index.md', '')}"
+
+            if clean_name not in seen_sources:
+                seen_sources.add(clean_name)
+                elements.append(
+                    cl.Text(
+                        name=f"📎 {clean_name}",
+                        content=f"Джерело: {url}\n\nФрагмент тексту:\n{doc.page_content}",
+                        display="side",
+                    )
+                )
+                source_links.append(f"[{clean_name}]({url})")
+
+        # Додаємо список посилань в кінець повідомлення
+        if source_links:
+            msg.content += "\n\n**Джерела:**\n" + "\n".join(
+                f"* {link}" for link in source_links
+            )
+
+        msg.elements = elements
 
         await msg.update()
 
