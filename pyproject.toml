@@ -9,17 +9,18 @@ authors = [
 ]
 license = "MIT"
 dependencies = [
-    "chromadb==1.5.9",
+    "chainlit==2.11.1",
     "langchain-chroma==1.1.0",
     "langchain-core==1.4.0",
     "langchain-ollama==1.1.0",
-    "langchain-text-splitters==1.1.2",
-    "unstructured==0.22.31",
     "pydantic==2.13.4",
     "pydantic-settings==2.14.1",
 ]
 [dependency-groups]
 dev = [
+    "chromadb==1.5.9",
+    "langchain-text-splitters==1.1.2",
+    "unstructured==0.22.31",
     "pre_commit",
     "ruff",
 ]
