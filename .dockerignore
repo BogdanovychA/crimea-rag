@@ -1,13 +1,15 @@
 # Projects
 /database/*
 !/database/.gitkeep
+#
+migrations
 # chainlit
 .chainlit/
 .files/
 #
 
 ### Agents
-#.agents/
+.agents/
 .antigravitycli/
 
 # OS
@@ -39,7 +41,6 @@ logs/
 ### Environments
 .env
 .env.*
-!.env.example
 
 ######## Python #######
 
