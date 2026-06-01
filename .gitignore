@@ -1,6 +1,10 @@
 # Projects
 /database/*
 !/database/.gitkeep
+# chainlit
+.chainlit/
+.files/
+#
 
 ### Agents
 #.agents/

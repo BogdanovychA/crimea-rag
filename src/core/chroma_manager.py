@@ -34,6 +34,8 @@ class ChromaManager:
             embedding_function=self.embedding_function,
         )
 
+        self.retriever = self.vector_db.as_retriever(search_kwargs={"k": self.k})
+
     def similarity_search(self, query: str) -> list[Document]:
         return self.vector_db.similarity_search(query, k=self.k)
 

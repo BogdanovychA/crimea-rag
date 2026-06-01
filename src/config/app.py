@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
 
 # from importlib.metadata import metadata
 from pathlib import Path
@@ -12,22 +11,14 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    @staticmethod
-    def get_asset_dir() -> Path:
-        """Повертає шлях до директорії з ресурсами."""
-        default_assets_dir = Path(__file__).resolve().parent.parent / "assets"
-        return Path(os.environ.get("FLET_ASSETS_DIR", default_assets_dir)).resolve()
-
     # name: str = meta["name"]
     # version: str = meta["version"]
     # license: str = meta["License-Expression"]
 
-    # base_url: str = ""
-
-    assets_dir: Path = get_asset_dir()
-    env_file: Path = assets_dir / ".env"
-
     base_dir: Path = Path(__file__).resolve().parent.parent.parent
+
+    assets_dir: Path = base_dir / "src" / "assets"
+    env_file: Path = assets_dir / ".env"
 
     database_dir_name: str = ""
 
