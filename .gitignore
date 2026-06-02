@@ -6,6 +6,7 @@
 .chainlit
 !/.chainlit/
 /.chainlit/*
+!/.chainlit/config.toml
 !/.chainlit/translations/
 /.chainlit/translations/*
 !/.chainlit/translations/uk-UA.json
