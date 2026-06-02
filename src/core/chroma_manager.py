@@ -47,12 +47,12 @@ class ChromaManager:
 
 
 if __name__ == "__main__":
-    from config import app
+    from config import app, embed
 
-    port_suffix = f":{app.settings.embed_port}" if app.settings.embed_port else ""
+    port_suffix = f":{embed.settings.port}" if embed.settings.port else ""
     client = ChromaManager(
-        model=app.settings.embed_model,
-        base_url=f"{app.settings.embed_url}{port_suffix}",
+        model=embed.settings.model,
+        base_url=f"{embed.settings.url}{port_suffix}",
         persist_directory=app.settings.database_dir,
         k=3,
     )
