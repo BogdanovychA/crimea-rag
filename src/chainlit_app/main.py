@@ -5,12 +5,14 @@ import logging
 import chainlit as cl
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
 
 from abstract.embed_manager import EmbedManager
 from abstract.llm_manager import LLMManager
 from chainlit_app.utils.models import PandorasBox
-from config import app, llm, server
+from config import server
 from core.langchain_manager import format_docs
+from models.llm import LLMName
 
 logging.basicConfig(
     level=server.settings.logging_level,
@@ -19,6 +21,8 @@ logging.basicConfig(
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
+
+LLMManager.register(LLMName.LAPA, ChatOpenAI)
 
 system_prompt = """
 Ти — помічник-знавець бази знань. Твоє завдання — відповідати на запитання, спираючись виключно на наданий контекст. Якщо в контексті немає відповіді, так і скажи, що не знаєш, не намагайся вигадувати відповідь.
@@ -32,24 +36,24 @@ system_prompt = """
 
 prompt = ChatPromptTemplate.from_template(system_prompt)
 
-embed_manager = EmbedManager()
-llm_manager = LLMManager.get_manager()
+embed = EmbedManager()
+llm = LLMManager()
 
 
 @cl.on_chat_start
 async def start():
 
-    user_chain = prompt | llm_manager | StrOutputParser()
+    user_chain = prompt | llm.manager | StrOutputParser()
 
     box = PandorasBox(
-        retriever=embed_manager.get_retriever(),
+        retriever=embed.get_retriever(),
         chain=user_chain,
     )
 
     cl.user_session.set("box", box)
 
     hello_text = f"""Привіт!
-Я - штучний інтелект від інференс провайдера "{app.settings.llm_name}", модель: "{llm.settings.model}".
+Я - штучний інтелект від інференс провайдера "{llm.name}", модель: "{llm.model}".
 Можеш поставити мені будь-яке запитання щодо контенту сайту ["Крим - це Україна"](https://crimea-is-ukraine.org).
     """
 
