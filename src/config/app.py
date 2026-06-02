@@ -17,8 +17,9 @@ class Settings(BaseSettings):
 
     base_dir: Path = Path(__file__).resolve().parent.parent.parent
 
-    assets_dir: Path = base_dir / "src" / "assets"
-    env_file: Path = assets_dir / ".env"
+    public_dir: Path = base_dir / "public"
+
+    env_file: Path = base_dir / ".env"
 
     database_dir_name: str = ""
 

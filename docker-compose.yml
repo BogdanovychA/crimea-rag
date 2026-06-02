@@ -10,7 +10,7 @@ services:
     container_name: chainlit_crimea-rag_app
     restart: always
     env_file:
-      - src/assets/.env
+      - .env
     volumes:
       - ./database:/app/database
     ports:
