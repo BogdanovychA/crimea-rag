@@ -9,7 +9,7 @@ from abc import ABC, abstractmethod
 
 from langchain_openai import ChatOpenAI
 
-from config import lapathoniia
+from config import llm
 
 
 class BaseLLMManager(ABC):
@@ -22,4 +22,4 @@ class BaseLLMManager(ABC):
 class LLMManager(BaseLLMManager):
     @classmethod
     def get_manager(cls) -> BaseChatModel:
-        return ChatOpenAI(**lapathoniia.settings.model_dump())
+        return ChatOpenAI(**llm.settings.model_dump())

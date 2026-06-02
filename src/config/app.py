@@ -7,6 +7,8 @@ from pathlib import Path
 from pydantic import computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from models.llm import LLMName
+
 # meta = metadata("crimea-rag")
 
 
@@ -37,6 +39,8 @@ class Settings(BaseSettings):
     @property
     def content_dir(self) -> Path:
         return self.parent_dir / self.www_project_name / self.www_content_dir_name
+
+    llm_name: LLMName = LLMName.LAPA
 
     model_config = SettingsConfigDict(
         env_file=env_file,

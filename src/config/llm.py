@@ -9,14 +9,14 @@ class Settings(BaseSettings):
     """Налаштування Lapathoniia"""
 
     api_key: str = ""
-    base_url: str = "https://api.lapathoniia.top"
-    model: str = "MamayLM-Gemma-3-12B-IT-v1.0"
-    max_tokens: int = 2000
-    temperature: float = 0.2
+    model: str = ""
+    base_url: str | None = None
+    temperature: float = 0.7
+    max_tokens: int = 3000
 
     model_config = SettingsConfigDict(
         env_file=app.settings.env_file,
-        env_prefix="LAPATHONIIA__",
+        env_prefix="LLM__",
         extra="ignore",
     )
 

@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: chainlit_crimea-rag:${APP_VERSION}
+    image: chainlit_crimea-rag:${DOCKER__APP_VERSION}
     pull_policy: missing
     container_name: chainlit_crimea-rag_app
     restart: always
