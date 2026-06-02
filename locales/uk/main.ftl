@@ -9,7 +9,23 @@ system-prompt =
 
 hello-text =
     Привіт!
-
-    Я - штучний інтелект від провайдера "{$llm_name}", модель: "{$llm_model}".
-
+    Я - штучний інтелект від провайдера "{ $llm_name }", модель: "{ $llm_model }".
     Можеш поставити мені будь-яке запитання щодо сайту ["Крим - це Україна"](https://crimea-is-ukraine.org).
+
+only-text-supported = Я вмію працювати лише з текстом
+
+kb-search-step-name = Пошук у базі знань
+
+kb-search-step-output = Знайдено { $count } релевантних фрагментів у базі знань.
+
+home-page = Головна
+
+source-element-content =
+    Джерело: { $url }
+
+    Фрагмент тексту:
+    { $content }
+
+sources-title = Джерела
+
+unexpected-error = Неочікувана помилка. Повідомте розробника.

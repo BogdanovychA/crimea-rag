@@ -64,20 +64,19 @@ async def start():
 @cl.on_message
 async def main(message: cl.Message):
 
+    box = cl.user_session.get("box")
     content = message.content
 
     if not content or not isinstance(content, str):
-        answer = "Я вмію працювати лише з текстом"
+        answer = box.fluent.get("only-text-supported")
         await cl.Message(content=answer).send()
         return
 
-    box = cl.user_session.get("box")
-
     try:
         # Пошук у базі знань через крок chainlit
-        async with cl.Step(name="Пошук у базі знань") as step:
+        async with cl.Step(name=box.fluent.get("kb-search-step-name")) as step:
             docs = await cl.make_async(box.retriever.invoke)(content)
-            step.output = f"Знайдено {len(docs)} релевантних фрагментів у базі знань."
+            step.output = box.fluent.get("kb-search-step-output", count=len(docs))
 
         # Формування контексту
         formatted_context = format_docs(docs)
@@ -101,7 +100,7 @@ async def main(message: cl.Message):
                 continue
             clean_name = source.replace("index.md", "").strip("/")
             if not clean_name:
-                clean_name = "Головна"
+                clean_name = box.fluent.get("home-page")
 
             url = f"https://crimea-is-ukraine.org/{source.replace('index.md', '')}"
 
@@ -110,7 +109,11 @@ async def main(message: cl.Message):
                 elements.append(
                     cl.Text(
                         name=f"📎 {clean_name}",
-                        content=f"Джерело: {url}\n\nФрагмент тексту:\n{doc.page_content}",
+                        content=box.fluent.get(
+                            "source-element-content",
+                            url=url,
+                            content=doc.page_content,
+                        ),
                         display="page",
                     )
                 )
@@ -118,7 +121,8 @@ async def main(message: cl.Message):
 
         # Додаємо список посилань в кінець повідомлення
         if source_links:
-            msg.content += "\n\n**Джерела:**\n" + "\n".join(
+            sources_title = box.fluent.get("sources-title")
+            msg.content += f"\n\n**{sources_title}:**\n" + "\n".join(
                 f"* {link}" for link in source_links
             )
 
@@ -128,5 +132,5 @@ async def main(message: cl.Message):
 
     except Exception as e:
         logger.exception("Unexpected error: %s", e)
-        text = "Неочікувана помилка. Повідомте розробника."
+        text = box.fluent.get("unexpected-error")
         await cl.Message(content=text).send()

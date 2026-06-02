@@ -6,3 +6,26 @@ system-prompt =
 
     User question:
     {question}
+
+hello-text =
+    Hello!
+    I am an AI from provider "{ $llm_name }", model: "{ $llm_model }".
+    You can ask me any question about the website ["Crimea is Ukraine"](https://crimea-is-ukraine.org/en/).
+
+only-text-supported = I can only work with text.
+
+kb-search-step-name = Knowledge base search
+
+kb-search-step-output = Found { $count } relevant fragments in the knowledge base.
+
+home-page = Home
+
+source-element-content =
+    Source: { $url }
+
+    Text snippet:
+    { $content }
+
+sources-title = Sources
+
+unexpected-error = Unexpected error. Please contact the developer.
