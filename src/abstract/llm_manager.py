@@ -22,10 +22,4 @@ class BaseLLMManager(ABC):
 class LLMManager(BaseLLMManager):
     @classmethod
     def get_manager(cls) -> BaseChatModel:
-        return ChatOpenAI(
-            api_key=lapathoniia.settings.api_key,
-            base_url=lapathoniia.settings.base_url,
-            model=lapathoniia.settings.models_dict[lapathoniia.settings.model_key],
-            temperature=lapathoniia.settings.temperature,
-            max_tokens=lapathoniia.settings.max_tokens,
-        )
+        return ChatOpenAI(**lapathoniia.settings.model_dump())

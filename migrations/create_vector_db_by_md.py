@@ -8,7 +8,7 @@ from langchain_core.documents import Document
 from langchain_ollama import OllamaEmbeddings
 from langchain_text_splitters import MarkdownTextSplitter
 
-from config import app
+from config import app, embed
 
 logger = logging.getLogger(__name__)
 
@@ -39,10 +39,10 @@ def main():
     chunks = text_splitter.split_documents(documents)
 
     logger.info("Зв'язок з Ollama та створення векторів...")
-    port_suffix = f":{app.settings.embed_port}" if app.settings.embed_port else ""
+    port_suffix = f":{embed.settings.port}" if embed.settings.port else ""
     embeddings = OllamaEmbeddings(
-        model=app.settings.embed_model,
-        base_url=f"{app.settings.embed_url}{port_suffix}",
+        model=embed.settings.model,
+        base_url=f"{embed.settings.url}{port_suffix}",
         mirostat=0,
         mirostat_eta=0.0,
         mirostat_tau=0.0,
@@ -56,7 +56,7 @@ def main():
 
     logger.info(f"Всього чанків для обробки: {len(chunks)}")
 
-    batch_size = app.settings.batch_size
+    batch_size = embed.settings.batch_size
 
     logger.info(f"Запис у базу порціями по {batch_size} батчів...")
 

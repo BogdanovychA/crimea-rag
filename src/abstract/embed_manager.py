@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 
 from abc import ABC, abstractmethod
 
-from config import app
+from config import app, embed
 from core.chroma_manager import ChromaManager
 
 
@@ -20,12 +20,12 @@ class BaseEmbedManager(ABC):
 class EmbedManager(BaseEmbedManager):
     def __init__(self) -> None:
 
-        port_suffix = f":{app.settings.embed_port}" if app.settings.embed_port else ""
+        port_suffix = f":{embed.settings.port}" if embed.settings.port else ""
         self.client = ChromaManager(
-            model=app.settings.embed_model,
-            base_url=f"{app.settings.embed_url}{port_suffix}",
+            model=embed.settings.model,
+            base_url=f"{embed.settings.url}{port_suffix}",
             persist_directory=app.settings.database_dir,
-            k=3,
+            k=embed.settings.default_k,
         )
 
     def get_retriever(self, *args, **kwargs) -> VectorStoreRetriever:

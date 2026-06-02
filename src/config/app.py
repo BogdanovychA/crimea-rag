@@ -38,12 +38,6 @@ class Settings(BaseSettings):
     def content_dir(self) -> Path:
         return self.parent_dir / self.www_project_name / self.www_content_dir_name
 
-    embed_model: str = ""
-    embed_url: str = ""
-    embed_port: int | None = None
-
-    batch_size: int = 50
-
     model_config = SettingsConfigDict(
         env_file=env_file,
         env_prefix="APP__",

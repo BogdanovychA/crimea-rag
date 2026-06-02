@@ -6,17 +6,17 @@ from config import app
 
 
 class Settings(BaseSettings):
-    """Налаштування Lapathoniia"""
+    model: str = ""
+    url: str = ""
+    port: int | None = None
 
-    api_key: str = ""
-    base_url: str = "https://api.lapathoniia.top"
-    model: str = "MamayLM-Gemma-3-12B-IT-v1.0"
-    max_tokens: int = 2000
-    temperature: float = 0.2
+    default_k: int = 5
+
+    batch_size: int = 50
 
     model_config = SettingsConfigDict(
         env_file=app.settings.env_file,
-        env_prefix="LAPATHONIIA__",
+        env_prefix="EMBED__",
         extra="ignore",
     )
 
