@@ -13,5 +13,6 @@ services:
       - .env
     volumes:
       - ./database:/app/database
+      - ./public:/app/public
     ports:
       - "8001:8000"
