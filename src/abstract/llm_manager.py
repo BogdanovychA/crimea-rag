@@ -27,4 +27,5 @@ class LLMManager(BaseLLMManager):
             base_url=lapathoniia.settings.base_url,
             model=lapathoniia.settings.models_dict[lapathoniia.settings.model_key],
             temperature=lapathoniia.settings.temperature,
+            max_tokens=lapathoniia.settings.max_tokens,
         )
