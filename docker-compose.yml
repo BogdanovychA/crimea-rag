@@ -14,5 +14,6 @@ services:
     volumes:
       - ./database:/app/database
       - ./public:/app/public
+      - ./locales:/app/locales
     ports:
       - "8001:8000"

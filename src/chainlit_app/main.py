@@ -4,6 +4,7 @@ import logging
 
 import chainlit as cl
 from chainlit.context import context
+from fluent_manager import FluentManager
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
@@ -12,7 +13,7 @@ from abstract.embed_manager import EmbedManager
 from abstract.llm_manager import LLMManager
 from chainlit_app.utils import utils
 from chainlit_app.utils.models import PandorasBox
-from config import server
+from config import app, server
 from core.langchain_manager import format_docs
 from models.llm import LLMName
 
@@ -36,17 +37,13 @@ async def start():
 
     lang = utils.get_lang(context.session)
 
-    system_prompt = """
-    Ти — помічник-знавець бази знань. Твоє завдання — відповідати на запитання, спираючись виключно на наданий контекст. Якщо в контексті немає відповіді, так і скажи, що не знаєш, не намагайся вигадувати відповідь.
+    fluent = FluentManager(
+        locales=[lang],
+        locales_path=str(app.settings.locales_dir),
+        default_locale=app.settings.default_locale,
+    )
 
-    Контекст для аналізу:
-    {context}
-
-    Запитання користувача:
-    {question}
-    """
-
-    prompt = ChatPromptTemplate.from_template(system_prompt)
+    prompt = ChatPromptTemplate.from_template(fluent.get("system-prompt"))
 
     user_chain = prompt | llm.manager | StrOutputParser()
 
@@ -54,16 +51,14 @@ async def start():
         retriever=embed.get_retriever(),
         chain=user_chain,
         lang=lang,
+        fluent=fluent,
     )
 
     cl.user_session.set("box", box)
 
-    hello_text = f"""Привіт!
-Я - штучний інтелект від провайдера "{llm.name}", модель: "{llm.model}".
-Можеш поставити мені будь-яке запитання щодо сайту ["Крим - це Україна"](https://crimea-is-ukraine.org).
-"""
-
-    await cl.Message(content=hello_text).send()
+    await cl.Message(
+        content=box.fluent.get("hello-text", llm_name=llm.name, llm_model=llm.model)
+    ).send()
 
 
 @cl.on_message

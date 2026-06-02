@@ -20,6 +20,9 @@ class Settings(BaseSettings):
     base_dir: Path = Path(__file__).resolve().parent.parent.parent
 
     public_dir: Path = base_dir / "public"
+    locales_dir: Path = base_dir / "locales"
+
+    default_locale: str = "en"
 
     env_file: Path = base_dir / ".env"
 

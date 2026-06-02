@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from fluent_manager import FluentManager
     from langchain_core.runnables.base import RunnableSerializable
     from langchain_core.vectorstores.base import VectorStoreRetriever
 
@@ -19,3 +20,4 @@ class PandorasBox:
     retriever: VectorStoreRetriever
     chain: RunnableSerializable
     lang: str
+    fluent: FluentManager
