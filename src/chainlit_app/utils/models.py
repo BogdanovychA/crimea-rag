@@ -18,3 +18,4 @@ class PandorasBox:
 
     retriever: VectorStoreRetriever
     chain: RunnableSerializable
+    lang: str

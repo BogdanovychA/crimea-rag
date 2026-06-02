@@ -3,12 +3,14 @@
 import logging
 
 import chainlit as cl
+from chainlit.context import context
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
 from abstract.embed_manager import EmbedManager
 from abstract.llm_manager import LLMManager
+from chainlit_app.utils import utils
 from chainlit_app.utils.models import PandorasBox
 from config import server
 from core.langchain_manager import format_docs
@@ -24,17 +26,6 @@ logger = logging.getLogger(__name__)
 
 LLMManager.register(LLMName.LAPA, ChatOpenAI)
 
-system_prompt = """
-Ти — помічник-знавець бази знань. Твоє завдання — відповідати на запитання, спираючись виключно на наданий контекст. Якщо в контексті немає відповіді, так і скажи, що не знаєш, не намагайся вигадувати відповідь.
-
-Контекст для аналізу:
-{context}
-
-Запитання користувача:
-{question}
-"""
-
-prompt = ChatPromptTemplate.from_template(system_prompt)
 
 embed = EmbedManager()
 llm = LLMManager()
@@ -43,19 +34,34 @@ llm = LLMManager()
 @cl.on_chat_start
 async def start():
 
+    lang = utils.get_lang(context.session)
+
+    system_prompt = """
+    Ти — помічник-знавець бази знань. Твоє завдання — відповідати на запитання, спираючись виключно на наданий контекст. Якщо в контексті немає відповіді, так і скажи, що не знаєш, не намагайся вигадувати відповідь.
+
+    Контекст для аналізу:
+    {context}
+
+    Запитання користувача:
+    {question}
+    """
+
+    prompt = ChatPromptTemplate.from_template(system_prompt)
+
     user_chain = prompt | llm.manager | StrOutputParser()
 
     box = PandorasBox(
         retriever=embed.get_retriever(),
         chain=user_chain,
+        lang=lang,
     )
 
     cl.user_session.set("box", box)
 
     hello_text = f"""Привіт!
-Я - штучний інтелект від інференс провайдера "{llm.name}", модель: "{llm.model}".
-Можеш поставити мені будь-яке запитання щодо контенту сайту ["Крим - це Україна"](https://crimea-is-ukraine.org).
-    """
+Я - штучний інтелект від провайдера "{llm.name}", модель: "{llm.model}".
+Можеш поставити мені будь-яке запитання щодо сайту ["Крим - це Україна"](https://crimea-is-ukraine.org).
+"""
 
     await cl.Message(content=hello_text).send()
 
@@ -110,7 +116,7 @@ async def main(message: cl.Message):
                     cl.Text(
                         name=f"📎 {clean_name}",
                         content=f"Джерело: {url}\n\nФрагмент тексту:\n{doc.page_content}",
-                        display="side",
+                        display="page",
                     )
                 )
                 source_links.append(f"[{clean_name}]({url})")
