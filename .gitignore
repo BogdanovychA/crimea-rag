@@ -2,8 +2,14 @@
 /database/*
 !/database/.gitkeep
 # chainlit
-.chainlit/
 .files/
+.chainlit
+!/.chainlit/
+/.chainlit/*
+!/.chainlit/translations/
+/.chainlit/translations/*
+!/.chainlit/translations/uk-UA.json
+!/.chainlit/translations/en-US.json
 #
 
 ### Agents
