@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     url: str = ""
     port: int | None = None
 
+    max_query_length: int = 650
+
     default_k: int = 5
 
     batch_size: int = 50

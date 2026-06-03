@@ -83,6 +83,12 @@ async def main(message: cl.Message):
         await cl.Message(content=answer).send()
         return
 
+    max_query_length = embed.max_query_length
+    if len(content) > max_query_length:
+        content = content[:max_query_length]
+        warning = box.fluent.get("request-too-large", max_query_length=max_query_length)
+        await cl.Message(content=warning).send()
+
     try:
         # Пошук у базі знань через крок chainlit
         async with cl.Step(name=box.fluent.get("kb-search-step-name")) as step:

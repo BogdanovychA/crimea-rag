@@ -16,6 +16,11 @@ class BaseEmbedManager(ABC):
     def get_retriever(self) -> VectorStoreRetriever:
         pass
 
+    @property
+    @abstractmethod
+    def max_query_length(self) -> int:
+        pass
+
 
 class EmbedManager(BaseEmbedManager):
     def __init__(self) -> None:
@@ -28,5 +33,11 @@ class EmbedManager(BaseEmbedManager):
             k=embed.settings.default_k,
         )
 
+        self._max_query_length = embed.settings.max_query_length
+
     def get_retriever(self, *args, **kwargs) -> VectorStoreRetriever:
         return self.client.get_retriever(*args, **kwargs)
+
+    @property
+    def max_query_length(self) -> int:
+        return self._max_query_length

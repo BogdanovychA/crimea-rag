@@ -29,3 +29,5 @@ source-element-content =
 sources-title = Джерела
 
 unexpected-error = Неочікувана помилка. Повідомте розробника.
+
+request-too-large = Ваш запит завеликий. Його буде скорочено. Максимальна довжина: { $max_query_length } символів.

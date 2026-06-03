@@ -29,3 +29,5 @@ source-element-content =
 sources-title = Sources
 
 unexpected-error = Unexpected error. Please contact the developer.
+
+request-too-large = Your request is too large. It will be shortened. Maximum length: { $max_query_length } characters.
