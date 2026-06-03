@@ -15,6 +15,32 @@ migrations
 !/.chainlit/translations/en-US.json
 #
 
+### Git & Metadata
+**/.git/
+**/.gitignore
+**/.pre-commit-config.yaml
+
+### Docker
+/Dockerfile
+/docker-compose.yml
+/.dockerignore
+/docker_data/*
+
+### Docs & Info (not needed in container)
+/docs/
+/DESIGN.md
+/README.md
+/AUTHORS.md
+/LICENSE
+/NOTICE
+/SECURITY.md
+/CONTRIBUTING.md
+/CITATION.cff
+/FUNDING.yml
+/CLAUDE.md
+/GEMINI.md
+/AGENTS.md
+
 ### Agents
 .agents/
 .antigravitycli/

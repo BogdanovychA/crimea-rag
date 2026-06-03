@@ -1,6 +1,8 @@
 # Projects
 /database/*
 !/database/.gitkeep
+/docker_data/*
+!/docker_data/.gitkeep
 # chainlit
 .files/
 .chainlit
