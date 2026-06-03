@@ -48,7 +48,7 @@ async def start():
 
     lang = utils.get_lang(context.session)
 
-    #  Ін'єкція для російськомовних браузерів :)
+    # Ін'єкція для російськомовних браузерів :)
     lang_list = ["ru", "uk"] if lang == "ru" else [lang]
 
     fluent = FluentManager(
@@ -70,8 +70,12 @@ async def start():
 
     cl.user_session.set("box", box)
 
+    #  Ін'єкція для російськомовних браузерів :)
+    suffix = box.fluent.get("glory-to-ukraine") if box.lang == "ru" else ""
+
     await cl.Message(
         content=box.fluent.get("hello-text", llm_name=llm.name, llm_model=llm.model)
+        + suffix
     ).send()
 
 
@@ -108,6 +112,9 @@ async def main(message: cl.Message):
 
         async for chunk in stream:
             await msg.stream_token(chunk)
+
+        if box.lang == "ru":  #  Ін'єкція для російськомовних браузерів :)
+            await msg.stream_token(box.fluent.get("glory-to-ukraine"))
 
         # Створення інтерактивних джерел для інтерфейсу Chainlit
         elements = []
