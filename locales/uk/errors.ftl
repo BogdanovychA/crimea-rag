@@ -1,0 +1,11 @@
+unexpected-error = Неочікувана помилка. Повідомте розробника.
+
+only-text-supported = Я вмію працювати лише з текстом.
+
+request-too-large =
+    Ваш запит завеликий. Його буде скорочено. Максимальна довжина: { $max_query_length } { $max_query_length ->
+        [one]   символ.
+        [few]   символи.
+        [many]  символів.
+       *[other] символів.
+    }
