@@ -16,5 +16,5 @@ You can ask the assistant any question — it will analyze the website's article
 
 **Andrii BOGDANOVYCH** — project mastermind and developer.
 
-* 🌐 Personal website: [bogdanovych.org](https://www.bogdanovych.org/)
+* 🌐 Personal website: [bogdanovych.org](https://www.bogdanovych.org/en/)
 * 🆔 ORCID: [0009-0006-9045-5675](https://orcid.org/0009-0006-9045-5675)
