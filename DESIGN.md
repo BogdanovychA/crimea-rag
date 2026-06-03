@@ -2,305 +2,396 @@
 
 ## 1. Visual Theme & Atmosphere
 
-This design system embodies a solemn, archival aesthetic rooted in historical documentation and national identity. The atmosphere balances gravitas with clarity—evoking the weight of historical records while maintaining accessibility through clean typography and deliberate whitespace. Deep darks and pure whites create stark contrast, reflecting the documentary nature of the platform. The occasional accent of teal introduces a contemporary flourish, humanizing the otherwise formal archive. The overall mood is serious yet inviting, designed to present historical evidence with transparency and respect. Typography-forward layouts emphasize text hierarchy, and minimal ornamentation allows historical imagery and primary sources to remain the focal point.
+This design system embodies a solemn yet compelling archival experience, rooted in historical documentation and national remembrance. The aesthetic combines dark, authoritative backgrounds with crisp white typography and strategic blue accents, creating a sense of gravitas and trustworthiness. The visual language emphasizes clarity and accessibility across extensive content repositories, using minimal decoration to ensure information hierarchy remains paramount. Geometric restraint and generous whitespace reflect institutional authority while maintaining emotional resonance around cultural preservation and political significance.
 
 **Key Characteristics**
-- High-contrast monochromatic palette with selective accent color
-- Archival, documentary visual language
-- Elegant, restrained typography hierarchy
-- Emphasis on historical authenticity and credibility
-- Clean, linear layout with deliberate negative space
-- Minimalist approach to decoration and embellishment
+
+- Dark-dominant color scheme with high-contrast white type for readability and emphasis
+- Minimal border radius and shadow effects—mostly sharp edges reflecting archival precision
+- Generous vertical spacing between content sections for mental breathing room
+- Blue accent palette suggesting official, institutional trust
+- Large, bold typography at hero scale for impact on landing moments
+- Card-based content organization for modular information architecture
+- Subtle gradient overlays on hero imagery for text legibility
+- Navigation anchored to dark header with white text for persistent orientation
 
 ## 2. Color Palette & Roles
 
 ### Primary
-- **Primary Interactive** (`#0000EE`): Hyperlinks, primary call-to-action elements, and interactive states (used extensively throughout navigation and content)
 
-### Accent Colors
-- **Accent Teal** (`#50E3C2`): Supporting highlights, subtle UI accents, and secondary interactive states
-
-### Interactive
-- **Text Link Dark** (`#0F0F0F`): Link text on light backgrounds, highest contrast interactive content
-- **Button Text Light** (`#FFFFFF`): Text color for buttons on dark backgrounds
+- **Hyperlink Blue** (`#0000EE`): Primary interactive element, links, and secondary CTAs; most frequently used accent across the interface
+- **Official Blue** (`#4287FF`): Secondary blue for button states and elevated interactive focus
+- **Deep Blue** (`#303FA1`): Tertiary blue for hover states and deeper interactive feedback
+- **Slate Blue** (`#526CFE`): Tertiary accent for decorative elements and auxiliary interactive states
+- **Muted Blue** (`#5D6CC0`): Soft blue for secondary UI elements and reduced-emphasis interactions
 
 ### Neutral Scale
-- **Dark Charcoal** (`#141414`): Primary text, headings, and dark UI backgrounds (highest usage)
-- **Off-Black** (`#000000`): Deep shadows, borders, and maximum contrast elements
-- **Very Dark Gray** (`#0F0F0F`): Secondary text, subtle UI elements
-- **Medium Gray** (`#676767`): Tertiary text, disabled states, and muted content
-- **Light Gray** (`#D8D8D8`): Borders, dividers, and subtle backgrounds
-- **Very Light Gray** (`#ECECEC`): Background tints, secondary surface color
-- **Dark Blue-Gray** (`#212736`): Navigation backgrounds, sidebar fill, secondary surfaces
-- **Charcoal Tone** (`#333232`): Border accents and fine details
+
+- **Off-Black** (`#141414`): Primary text color; dominant background for hero and navigation sections; highest contrast base
+- **Pure Black** (`#000000`): Intense text emphasis and borders where maximum contrast is required
+- **Deep Charcoal** (`#0F0F0F`): Secondary background tint; near-black for subtle differentiation
+- **Dark Gray** (`#212736`): Secondary text and muted interface elements
+- **Medium Gray** (`#676767`): Tertiary text, disabled states, and secondary copy
+- **Light Gray** (`#D8D8D8`): Subtle dividers and light borders
+- **Off-White** (`#ECECEC`): Card backgrounds and light surface tints
+- **Pure White** (`#FFFFFF`): Primary background, card surfaces, and maximum contrast overlays
+- **Whisper White** (`#F5F5F5`): Minimal surface lift for very subtle layering
 
 ### Surface & Borders
-- **Pure White** (`#FFFFFF`): Primary background, card surfaces, content containers
-- **Off-White Gray** (`#ECECEC`): Secondary background tint, inactive states
-- **Light Border** (`#D8D8D8`): Subtle dividers and component borders
+
+- **Card Border** (`#D8D8D8`): Thin borders separating white card content from light backgrounds
+- **Light Surface** (`#ECECEC`): Soft background for card containers and subtle surface elevation
+
+### Semantic / Status
+
+- **Error Red** (`#D52A2A`): Critical alerts, error messages, and destructive actions requiring immediate attention
+- **Warning Yellow** (`#FFFF00`): Caution indicators and warning states demanding user awareness
 
 ## 3. Typography Rules
 
 ### Font Family
-- **Primary**: Roboto, sans-serif
-- **Fallback Stack**: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
+
+**Primary:** Roboto (300, 400, 700 weights) with fallback stack: `Roboto, system-ui, -apple-system, sans-serif`
+
+**Monospace:** Roboto Mono (400, 700 weights) for code blocks and technical content with fallback: `Roboto Mono, 'Courier New', monospace`
 
 ### Hierarchy
 
 | Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |
-|------|------|------|--------|-------------|---|---|
-| Display / Hero | Roboto | 104px | 700 | 124.8px | 0px | Page titles, major headings |
-| Body Paragraph | Roboto | 20px | 300 | 24px | 0px | Primary content text, descriptive copy |
-| UI Text / Span | Roboto | 15px | 400 | normal | 0px | Button labels, labels, captions |
-| Navigation Link | Roboto | 15px | 300 | 22.5px | 0px | Menu items, secondary navigation |
-| Link / Anchor | Roboto | 15px | 300 | normal | 0px | Inline links, reference text |
+|---|---|---|---|---|---|---|
+| Display / H1 | Roboto | 104px | 700 | 115px | 0px | Hero headlines; maximum impact for page titles |
+| Heading / H2 | Roboto | 36px | 700 | 44px | 0px | Section headings; moderate emphasis |
+| Heading / H3 | Roboto | 24px | 700 | 28px | 0px | Subsection titles and card titles |
+| Heading / H4 | Roboto | 20px | 700 | 24px | 0px | Minor headings and prominent labels |
+| Body / P | Roboto | 20px | 300 | 28px | 0px | Primary running text; generously sized for readability |
+| Secondary / Caption | Roboto | 15px | 300 | 19.5px | 0px | Metadata, list items, and supporting text |
+| Link / Inline | Roboto | 12.8px | 300 | 24px | 0px | Hyperlinked text within body content |
+| Button / CTA | Roboto | 20px | 400 | normal | 0px | Call-to-action labels; semi-bold for prominence |
+| Input / Form | Roboto | 13.3333px | 400 | normal | 0px | Form field placeholders and input text |
+| Code / Monospace | Roboto Mono | 14px | 400 | 20px | 0px | Technical content and code samples |
 
 ### Principles
-- **Contrast Through Weight**: Bold (700) for emphasis; light (300) for supporting content
-- **Generous Line Height**: Enhances readability in longer-form archival content
-- **No Letter Spacing**: Maintains the clean, compact aesthetic
-- **Size Restraint**: Limited palette of 3 sizes ensures visual coherence
-- **Roboto Consistency**: Single family used throughout for unified, modern professionalism
+
+- **Generous sizing:** Base body text at `20px` ensures accessibility for long-form historical content and older user demographics
+- **Light-weight body:** 300-weight Roboto on body text reduces visual density and creates elegant, approachable reading experience
+- **Bold headings:** 700-weight headings provide clear information hierarchy and visual anchors
+- **Line height priority:** 1.4x–1.5x multipliers ensure ample vertical rhythm, critical for dense archival text
+- **Minimal letter-spacing:** Default spacing maintains Roboto's inherent legibility; custom spacing avoided except where brand requires
+- **Scale relationships:** Heading sizes follow a consistent 1.44–1.67x multiplier for harmonious visual progression
 
 ## 4. Component Stylings
 
 ### Buttons
 
-**Default Button (Dark Text)**
-- `background-color`: `rgba(0, 0, 0, 0)` (transparent)
-- `color`: `#141414`
-- `font-size`: `15px`
-- `font-weight`: `400`
-- `font-family`: `Roboto`
-- `padding`: `12px 8px`
-- `border-radius`: `0px`
-- `border`: `0px none`
-- `box-shadow`: `none`
-- `line-height`: `normal`
-- **Hover**: Opacity to `0.7`, maintains text color `#141414`
-- **Active**: Opacity to `0.5`
+#### Primary Button
 
-**Default Button (Light Text)**
-- `background-color`: `rgba(0, 0, 0, 0)` (transparent)
-- `color`: `#FFFFFF`
-- `font-size`: `15px`
-- `font-weight`: `400`
-- `font-family`: `Roboto`
-- `padding`: `12px 8px`
-- `border-radius`: `0px`
-- `border`: `0px none`
-- `box-shadow`: `none`
-- `line-height`: `normal`
-- **Hover**: Opacity to `0.8`
-- **Active**: Opacity to `0.6`
+- **Background:** `#141414`
+- **Text Color:** `#FFFFFF`
+- **Font Size:** `15px`
+- **Font Weight:** `700`
+- **Font Family:** `Roboto, system-ui, sans-serif`
+- **Padding:** `16px 32px`
+- **Border Radius:** `0px`
+- **Border:** `1px solid #141414`
+- **Box Shadow:** `none`
+- **Height:** `58px`
+- **Line Height:** `24px`
+- **Hover State:** Background `#0F0F0F`, Border `1px solid #0F0F0F`
+- **Active State:** Background `#000000`, Border `1px solid #000000`
+- **Disabled State:** Background `#676767`, Border `1px solid #676767`, Text `#ECECEC`, Cursor `not-allowed`
 
-### Links
+#### Secondary Button (Ghost)
 
-**Primary Link**
-- `background-color`: `rgba(0, 0, 0, 0)` (transparent)
-- `color`: `#0F0F0F`
-- `font-size`: `15px`
-- `font-weight`: `300`
-- `font-family`: `Roboto`
-- `padding`: `0px 0px`
-- `border-radius`: `0px`
-- `border`: `0px none`
-- `box-shadow`: `none`
-- `line-height`: `normal`
-- **Hover**: Underline applied, color remains `#0F0F0F`
-- **Visited**: Color to `#676767`
-- **Active**: Color to `#0000EE`
+- **Background:** `transparent`
+- **Text Color:** `rgba(0, 0, 0, 0.54)`
+- **Font Size:** `14px`
+- **Font Weight:** `400`
+- **Font Family:** `Roboto, system-ui, sans-serif`
+- **Padding:** `8px 16px`
+- **Border Radius:** `0px`
+- **Border:** `0px none`
+- **Box Shadow:** `rgba(0, 0, 0, 0.1) 0px 4px 10px 0px, rgba(0, 0, 0, 0.25) 0px 0px 1px 0px`
+- **Height:** `40px`
+- **Line Height:** `normal`
+- **Hover State:** Background `#ECECEC`, Text Color `rgba(0, 0, 0, 0.87)`
+- **Active State:** Background `#D8D8D8`, Text Color `#000000`
 
-**Interactive Link (Blue)**
-- `background-color`: `rgba(0, 0, 0, 0)` (transparent)
-- `color`: `#0000EE`
-- `font-size`: `15px`
-- `font-weight`: `300`
-- `font-family`: `Roboto`
-- `padding`: `0px 0px`
-- `border-radius`: `0px`
-- `border`: `0px none`
-- `box-shadow`: `none`
-- `line-height`: `normal`
-- **Hover**: Opacity to `0.8`, underline applied
-- **Active**: Opacity to `0.6`
+#### Icon Button
 
-### Navigation
-
-**Navigation Default**
-- `background-color`: `rgba(0, 0, 0, 0)` (transparent)
-- `color`: `#141414`
-- `font-size`: `15px`
-- `font-weight`: `300`
-- `font-family`: `Roboto`
-- `padding`: `0px 0px`
-- `border-radius`: `0px`
-- `border`: `0px none`
-- `box-shadow`: `none`
-- `width`: `100%`
-- `line-height`: `22.5px`
-- **Hover**: Color to `#0000EE`, text underline
-- **Active**: Color to `#0000EE`, font-weight to `400`
-
-**Navigation Container**
-- `background-color`: `#212736`
-- `padding`: `20px 40px`
-- `display`: `flex`
-- `gap`: `32px`
-- `width`: `100%`
+- **Background:** `transparent`
+- **Text Color:** `rgba(0, 0, 0, 0.54)`
+- **Font Size:** `20px`
+- **Font Weight:** `400`
+- **Font Family:** `Roboto, system-ui, sans-serif`
+- **Padding:** `0px`
+- **Border Radius:** `0px`
+- **Border:** `0px none`
+- **Box Shadow:** `none`
+- **Height:** `24px`
+- **Width:** `24px`
+- **Line Height:** `normal`
+- **Hover State:** Text Color `rgba(0, 0, 0, 0.87)`
 
 ### Cards & Containers
 
-**Archive Card**
-- `background-color`: `#FFFFFF`
-- `border`: `1px solid #D8D8D8`
-- `border-radius`: `0px`
-- `padding`: `32px 32px`
-- `box-shadow`: `none`
-- **Hover**: Border color to `#141414`, slight opacity shift
+#### White Card with Border
 
-**Section Container**
-- `background-color`: `#FFFFFF`
-- `padding`: `40px 40px`
-- `margin-bottom`: `52px`
-- `width`: `100%`
+- **Background:** `#FFFFFF`
+- **Text Color:** `#141414`
+- **Font Size:** `20px`
+- **Font Weight:** `300`
+- **Font Family:** `Roboto, system-ui, sans-serif`
+- **Padding:** `32px`
+- **Border Radius:** `0px`
+- **Border:** `1px solid #D8D8D8`
+- **Box Shadow:** `none`
+- **Min Height:** `530px`
+- **Line Height:** `28px`
+- **Hover State:** Border `1px solid #ECECEC`, Shadow `rgba(0, 0, 0, 0.08) 0px 2px 6px 0px`
 
-**Dark Background Container**
-- `background-color`: `#141414`
-- `color`: `#FFFFFF`
-- `padding`: `100px 40px`
+#### Light Gray Card
+
+- **Background:** `#ECECEC`
+- **Text Color:** `#141414`
+- **Font Size:** `20px`
+- **Font Weight:** `300`
+- **Font Family:** `Roboto, system-ui, sans-serif`
+- **Padding:** `0px`
+- **Border Radius:** `0px`
+- **Border:** `1px solid #ECECEC`
+- **Box Shadow:** `none`
+- **Height:** `180px`
+- **Line Height:** `24px`
+
+#### Content Container
+
+- **Background:** `transparent`
+- **Text Color:** `#141414`
+- **Font Size:** `20px`
+- **Font Weight:** `300`
+- **Font Family:** `Roboto, system-ui, sans-serif`
+- **Padding:** `0px 0px 52px 0px`
+- **Border Radius:** `0px`
+- **Border:** `none`
+- **Box Shadow:** `none`
+- **Line Height:** `28px`
+
+### Inputs & Forms
+
+#### Text Input
+
+- **Background:** `transparent`
+- **Text Color:** `#FFFFFF`
+- **Font Size:** `15px`
+- **Font Weight:** `400`
+- **Font Family:** `Roboto, system-ui, sans-serif`
+- **Padding:** `1px 44px`
+- **Border Radius:** `0px`
+- **Border:** `0px none`
+- **Box Shadow:** `none`
+- **Height:** `36px`
+- **Line Height:** `normal`
+- **Placeholder Color:** `rgba(255, 255, 255, 0.6)`
+- **Focus State:** Border `1px solid #4287FF`, Box Shadow `0px 0px 0px 2px rgba(66, 135, 255, 0.2)`
+- **Error State:** Border `1px solid #D52A2A`, Box Shadow `0px 0px 0px 2px rgba(213, 42, 42, 0.15)`
+
+### Navigation
+
+#### Header Navigation
+
+- **Background:** `transparent`
+- **Text Color:** `#FFFFFF`
+- **Font Size:** `20px`
+- **Font Weight:** `300`
+- **Font Family:** `Roboto, system-ui, sans-serif`
+- **Padding:** `0px 4px`
+- **Border Radius:** `0px`
+- **Border:** `0px none`
+- **Box Shadow:** `rgba(0, 0, 0, 0.1) 0px 0px 4px 0px, rgba(0, 0, 0, 0.2) 0px 4px 8px 0px`
+- **Height:** `48px`
+- **Line Height:** `28px`
+- **Hover State:** Text Color `#4287FF`
+- **Active State:** Text Color `#0000EE`, Border Bottom `2px solid #0000EE`
+
+#### Link Buttons in Nav
+
+- **Background:** `rgba(0, 0, 0, 0.87)`
+- **Text Color:** `#FFFFFF`
+- **Font Size:** `12.8px`
+- **Font Weight:** `300`
+- **Font Family:** `Roboto, system-ui, sans-serif`
+- **Padding:** `6px 10px`
+- **Border Radius:** `0px`
+- **Border:** `0px none`
+- **Box Shadow:** `none`
+- **Height:** `36px`
+- **Line Height:** `24px`
+- **Hover State:** Background `rgba(0, 0, 0, 1)`, Text Color `#4287FF`
+
+#### Text Link (Inline)
+
+- **Background:** `transparent`
+- **Text Color:** `#FFFFFF`
+- **Font Size:** `20px`
+- **Font Weight:** `300`
+- **Font Family:** `Roboto, system-ui, sans-serif`
+- **Padding:** `8px 8px`
+- **Border Radius:** `0px`
+- **Border:** `0px none`
+- **Box Shadow:** `none`
+- **Height:** `40px`
+- **Width:** `40px`
+- **Line Height:** `24px`
+- **Hover State:** Color `#0000EE`, Text Decoration `underline`
+- **Focus State:** Outline `2px solid #4287FF`, Outline Offset `2px`
 
 ## 5. Layout Principles
 
 ### Spacing System
 
-Base unit: **4px**
+**Base unit:** `4px`
 
-**Scale with contexts:**
-- `8px`: Micro spacing, internal padding
-- `12px`: Button padding, small gaps
-- `16px`: Standard padding, tight spacing
-- `20px`: Medium padding, section gaps
-- `32px`: Card padding, component spacing
-- `40px`: Container padding, section sides
-- `52px`: Significant gaps between sections
-- `100px`: Major section separation
-- `120px`: Hero section vertical spacing
-- `200px`: Full-width padding edge cases
+**Spacing scale:**
+- `4px`: Minimal internal padding, icon spacing
+- `8px`: Compact component gaps, small margins
+- `12px`: Button internal spacing, small card padding
+- `16px`: Standard button padding, form field spacing
+- `20px`: Primary body padding, content margins
+- `24px`: Component gap, moderate section spacing
+- `32px`: Card padding, substantial section margins
+- `40px`: Large container padding
+- `44px`: Extra large spacing between major sections
+- `52px`: Significant vertical rhythm between content blocks
+- `112px`: Large gap between section groups
+- `160px`: Maximum breathing room between major layout sections
+
+**Usage contexts:**
+- **Compact:** `4px`–`8px` for icon containers, nested element spacing
+- **Standard:** `16px`–`24px` for buttons, form fields, card margins
+- **Generous:** `32px`–`52px` for card padding, section separation
+- **Expansive:** `112px`–`160px` for hero sections, major content divisions
 
 ### Grid & Container
 
-- **Max Width**: No explicit max-width constraint; full-width sections with internal padding
-- **Column Strategy**: Flexible grid using CSS Grid or Flexbox; typically 1–3 columns depending on content type
-- **Section Pattern**: Full-width containers with `40px` horizontal padding on desktop; archive cards use `32px` internal padding
-- **Hero Section**: Full viewport height with centered text, `120px` vertical rhythm
+**Max width:** `1220px` (navigation container observed width)
+
+**Column strategy:** Flexible 3-column layout for card grids on larger screens, with cards responsive to `278px` minimum width at medium breakpoints. Hero spans full width with centered text overlay.
+
+**Section patterns:**
+- Hero section: Full viewport width with centered overlay text and image background
+- Content grid: 3-column card layout at desktop, transitioning to 2-column at tablet, 1-column at mobile
+- Navigation: Fixed or sticky header spanning full width with horizontal menu items
+- Footer: Full-width dark bar with centered content
 
 ### Whitespace Philosophy
 
-Whitespace is treated as a design element, not mere emptiness. Generous padding around text blocks and cards ensures content breathes. Vertical rhythm is established through consistent `52px` section breaks. Margins are used to separate distinct content blocks; padding creates internal breathing room. This approach creates a calm, archival aesthetic appropriate to historical documentation.
+Generous, intentional whitespace defines the experience. Large margins between sections (52px–160px) prevent content fatigue and create visual breathing room for dense historical materials. Card-based architecture uses 32px internal padding to ensure content doesn't feel cramped. Vertical rhythm adheres to multiples of 4px, creating a consistent visual grid beneath all layouts.
 
 ### Border Radius Scale
 
-- `0px`: All components (buttons, cards, inputs, containers)
-- **Philosophy**: Sharp, rectilinear edges reinforce documentary and archival aesthetic; clean lines evoke formal records and official documentation
+- **0px (Sharp edges):** All buttons, cards, inputs, navigation, and borders. Sharp geometry reflects institutional archival design.
+- **No rounded corners:** Maintains minimalist, authoritative aesthetic consistent with document-centric information architecture.
 
 ## 6. Depth & Elevation
 
 | Level | Treatment | Use |
-|-------|-----------|-----|
-| Ground | No shadow | Card backgrounds, default surfaces |
-| Raised (Hover) | `0px 2px 8px rgba(0, 0, 0, 0.12)` | Interactive cards on hover, lifted buttons |
-| Elevated | `0px 4px 16px rgba(0, 0, 0, 0.15)` | Modals, overlays, dropdown menus |
-| High | `0px 8px 24px rgba(0, 0, 0, 0.20)` | Floating elements, emphasized modals |
+|---|---|---|
+| Flat (None) | `box-shadow: none` | Cards on light backgrounds, primary button states, text-only content |
+| Subtle (Small) | `rgba(0, 0, 0, 0.1) 0px 4px 10px 0px, rgba(0, 0, 0, 0.25) 0px 0px 1px 0px` | Secondary buttons, floating action elements, hover card lift |
+| Medium (Navigation) | `rgba(0, 0, 0, 0.1) 0px 0px 4px 0px, rgba(0, 0, 0, 0.2) 0px 4px 8px 0px` | Header/navigation fixed positioning, elevated content sections |
+| Strong (Modal) | `rgba(0, 0, 0, 0.2) 0px 4px 10px 0px, rgba(0, 0, 0, 0.35) 0px 0px 1px 0px` | Modals, overlays, critical notification cards |
 
-**Shadow Philosophy**: Minimal elevation is used sparingly. Most surfaces are flat with `box-shadow: none`. Shadows appear only on interactive hover states or temporary overlays to indicate depth and interactivity. This restraint maintains the serious, archival character while providing subtle affordance cues for interactive elements.
+**Shadow Philosophy:** Minimal shadow usage reflects the serious, archival nature of the content. Shadows appear primarily on hover states (cards) and elevated UI elements (navigation). The darker shadow values (`0.2`–`0.35` alpha for modal) create distinct layering without excess drama. Sharp edges and restrained shadows together convey institutional authority and trustworthiness appropriate for historical documentation.
 
 ## 7. Do's and Don'ts
 
 ### Do
-- Use `#141414` for primary headings and body text on white backgrounds
-- Apply `#0000EE` exclusively to interactive elements (links, active navigation)
-- Maintain `0px` border radius on all components for consistency
-- Implement generous padding (`32px` to `40px`) around content to create visual breathing room
-- Use `15px` font size for UI text and navigation labels
-- Stack sections vertically with `52px` margins between major content blocks
-- Employ `#FFFFFF` and `#ECECEC` as primary background colors
-- Maintain light weight (`300`) in body text for elegant readability
-- Reserve bold weight (`700`) for display headings only
-- Use `#50E3C2` teal sparingly as accent highlights
+
+- **Use white card backgrounds with `#D8D8D8` borders** for modular content presentation; this pattern dominates the information architecture
+- **Apply `#141414` as the primary dark base** for hero sections, navigation headers, and primary button backgrounds
+- **Employ generous whitespace:** minimum `32px` padding inside cards, `52px`–`160px` margins between sections
+- **Maintain sharp `0px` border radius** across all interactive elements and containers for consistency with institutional design language
+- **Use `#0000EE` or `#4287FF` blue for all primary interactive elements:** links, secondary CTAs, and focus states
+- **Prioritize typography hierarchy:** Use `104px` H1 for hero impact, `36px` H2 for section dividers, `20px` body for readability
+- **Layer content with card-based modular layouts** for dense archival information; use card separation to organize related content groups
+- **Include meaningful hover states** on secondary buttons and cards with subtle shadow lift and color shift
+- **Test all type sizes at 1.4x–1.5x line height** for optimal readability in long-form historical content
 
 ### Don't
-- Do not use rounded corners; maintain sharp `0px` border radius throughout
-- Do not mix multiple typeface families; Roboto is the sole font family
-- Do not apply box shadows to standard UI elements; reserve shadows for hover states
-- Do not exceed `104px` for heading sizes outside hero sections
-- Do not use colors outside the defined palette; no custom or brand colors beyond the 11 specified
-- Do not apply letter spacing; maintain `0px` for all typography
-- Do not use `#212736` on light backgrounds; reserve for dark UI elements
-- Do not create narrow padding below `12px` for interactive elements
-- Do not apply opacity changes to text; use color substitution instead
-- Do not place interactive elements without sufficient padding (`12px` minimum)
+
+- **Don't use rounded corners** (`border-radius > 0px`); maintain sharp edges for institutional authority
+- **Don't apply heavy shadows** (`box-shadow` with alpha > 0.35) outside of modal overlays; restraint conveys seriousness
+- **Don't reduce font sizes below extracted specifications** for body (`20px`) or buttons (`15px`–`20px`); accessibility demands maintained
+- **Don't use colors outside the defined palette** for primary elements; blue and neutral scale are exhaustive by design
+- **Don't compress vertical spacing** below `16px` between major content blocks; generous whitespace is essential to the aesthetic
+- **Don't place body text on dark backgrounds** without sufficient contrast; prefer white text on dark or dark text on white
+- **Don't mix font weights arbitrarily** within body paragraphs; use only 300, 400, or 700 as specified
+- **Don't create interactive elements without hover/focus states;** all buttons and links require visual feedback
+- **Don't exceed max container width** of `1220px` for standard content layouts; hero can span full viewport
+- **Don't underline text links unless hovered;** rely on color differentiation (`#0000EE` or `#4287FF`) for link identification
 
 ## 8. Responsive Behavior
 
 ### Breakpoints
 
-| Breakpoint | Width | Key Changes |
-|-----------|-------|-----------|
-| Mobile | 320px–599px | Single column, `20px` horizontal padding, `15px` font for body, `52px` h2, touch targets `44px` min |
-| Tablet | 600px–1023px | 2-column card layouts, `32px` padding, `80px` h2, stacked navigation |
-| Desktop | 1024px+ | 3-column archive layouts, `40px` padding, `104px` h2, full navigation menu |
-| Large Desktop | 1440px+ | max-width container at `1400px` center-aligned, increased section spacing to `100px` |
+| Breakpoint Name | Width | Key Changes |
+|---|---|---|
+| Mobile | 0px–480px | 1-column card grid, full-width cards (`100% - 16px` margin), reduced H1 to `52px`, H2 to `24px`, stacked navigation menu |
+| Tablet | 481px–768px | 2-column card grid, H1 to `72px`, H2 to `28px`, horizontal scrolling navigation with overflow |
+| Desktop | 769px–1220px | 3-column card grid, full typography scale, fixed navigation header, max container width `1220px` |
+| Large Desktop | 1220px+ | Maintain 3-column layout, center content with side margins, max width enforced at `1220px` |
 
 ### Touch Targets
 
-- **Minimum Height**: `44px` for all buttons and clickable elements
-- **Minimum Width**: `44px` for small buttons
-- **Padding Around Targets**: `8px` minimum separation between interactive elements
-- **Link Text**: Font size remains `15px` but padded to `44px` total height on mobile
+- **Minimum touch target size:** `44px × 44px` for all button and link interactive elements
+- **Spacing between targets:** Minimum `8px` gap between adjacent interactive elements to prevent mistouch
+- **Form field height:** `36px`–`40px` minimum for comfortable mobile interaction
+- **Navigation items:** Minimum `48px` height for horizontal nav links; vertical spacing `16px` between stacked items
 
 ### Collapsing Strategy
 
-- **Hero Section**: Font size scales from `52px` (mobile) → `104px` (desktop); padding reduces from `40px` (mobile) → `200px` (desktop edge-to-edge)
-- **Cards**: Full-width single column on mobile; 2-column grid on tablet; 3-column on desktop
-- **Navigation**: Vertical stacked menu on mobile with `16px` gaps; horizontal flex layout on desktop with `32px` gaps
-- **Body Text**: Remains `20px` on desktop but may reduce to `16px` on mobile for space efficiency
-- **Section Padding**: `20px` horizontal on mobile; `40px` on tablet/desktop
+- **Navigation:** Desktop horizontal menu collapses to icon-triggered drawer or hamburger menu below `768px`
+- **Cards:** Transition from 3-column to 2-column at `769px`, then to 1-column at `481px`; card width scales to fill container minus margins
+- **Typography:** H1 scales from `104px` (desktop) → `72px` (tablet) → `52px` (mobile); H2 scales `36px` → `28px` → `24px`
+- **Padding:** Container padding reduces from `40px` (desktop) → `24px` (tablet) → `16px` (mobile)
+- **Hero section:** Full-viewport height on desktop; reduced to `60vh` on tablet, `50vh` on mobile; text overlay centers vertically with smaller font
+- **Spacing:** Large gaps (`112px`–`160px`) reduce to `52px`–`80px` on tablet, `32px`–`44px` on mobile
 
 ## 9. Agent Prompt Guide
 
 ### Quick Color Reference
 
-- **Primary CTA / Interactive**: Blue (`#0000EE`)
-- **Background (Primary)**: White (`#FFFFFF`)
-- **Background (Secondary)**: Very Light Gray (`#ECECEC`)
-- **Background (Dark UI)**: Dark Charcoal (`#141414`)
-- **Navigation Background**: Dark Blue-Gray (`#212736`)
-- **Heading / Primary Text**: Dark Charcoal (`#141414`)
-- **Body / Secondary Text**: Dark Charcoal (`#141414`)
-- **Tertiary / Muted Text**: Medium Gray (`#676767`)
-- **Borders / Dividers**: Light Gray (`#D8D8D8`)
-- **Accent Highlight**: Teal (`#50E3C2`)
-- **Deep Shadow / Maximum Contrast**: Off-Black (`#000000`)
+- **Primary CTA Button:** Off-Black (`#141414`), text white
+- **Primary Link/Accent:** Hyperlink Blue (`#0000EE`)
+- **Secondary Interactive:** Official Blue (`#4287FF`)
+- **Primary Text:** Off-Black (`#141414`)
+- **Body Background:** Pure White (`#FFFFFF`)
+- **Light Surface:** Off-White (`#ECECEC`)
+- **Neutral Border:** Light Gray (`#D8D8D8`)
+- **Dark Header/Hero:** Off-Black (`#141414`)
+- **Header Text:** Pure White (`#FFFFFF`)
+- **Disabled/Muted:** Medium Gray (`#676767`)
+- **Error State:** Error Red (`#D52A2A`)
+- **Warning State:** Warning Yellow (`#FFFF00`)
 
 ### Iteration Guide
 
-1. **Every interactive element uses Roboto `15px` weight `400` with transparent background unless explicitly styled as a filled button.**
+1. **Set all border-radius to `0px`** across buttons, cards, inputs, and containers; no rounded corners.
 
-2. **Primary text headings are Roboto `104px` weight `700` with line-height `124.8px`; body is `20px` weight `300` with line-height `24px`.**
+2. **Apply generous padding:** Cards receive `32px`, containers `40px`–`44px`, small elements `16px`.
 
-3. **All components have `0px` border-radius; sharp edges are mandatory.**
+3. **Use sharp color contrasts:** Pair `#141414` backgrounds with `#FFFFFF` text, or `#FFFFFF` backgrounds with `#141414` text; avoid mid-tone combinations.
 
-4. **Links are `#0000EE` for active/primary interactive; `#0F0F0F` for secondary links; underline appears on hover.**
+4. **Maintain typography hierarchy precisely:** H1 at `104px`/`700`, H2 at `36px`/`700`, body at `20px`/`300`; do not deviate without explicit design rationale.
 
-5. **Navigation items are `15px` weight `300` on `#212736` dark background; change color to `#0000EE` on hover and increase weight to `400` when active.**
+5. **Implement shadow restraint:** Only apply shadows on secondary buttons (`rgba(0, 0, 0, 0.1) 0px 4px 10px 0px...`) and modal overlays; avoid shadows on primary buttons and cards unless hovered.
 
-6. **Card components use `32px` padding, white background (`#FFFFFF`), `1px solid #D8D8D8` border, and no shadow by default.**
+6. **Space sections generously:** Vertical margins between major content blocks should be `52px` or greater; use the spacing scale multiples.
 
-7. **Section containers have `40px` horizontal padding and `52px` vertical separation; hero sections use `100px` to `120px` vertical padding.**
+7. **Use blue intentionally:** `#0000EE` for primary links and hover states, `#4287FF` for secondary interactive elements; reserve blues for interactive-only purposes.
 
-8. **Box shadows are applied only to interactive hover states (e.g., `0px 2px 8px rgba(0, 0, 0, 0.12)`) or temporary overlays; default surfaces have `box-shadow: none`.**
+8. **Build card-based layouts:** Organize information in modular white cards with light borders; 3-column grids on desktop, responsive collapsing on smaller screens.
 
-9. **Responsive design: mobile breakpoint at `600px` uses `20px` padding and single-column layouts; desktop at `1024px` uses `40px` padding and multi-column grids.**
+9. **Prioritize accessibility:** Maintain minimum `20px` body font size, line height `1.4x` or greater, color contrast ratios ≥ 4.5:1 for all text.
 
-10. **Accent teal (`#50E3C2`) is used sparingly for highlights or secondary interactive states; never as primary text or background.**
+10. **Establish hover/focus feedback:** Every button and link must shift color, background, or shadow on hover/focus; disabled states use `#676767` with cursor `not-allowed`.
