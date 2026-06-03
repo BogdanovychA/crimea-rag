@@ -17,4 +17,5 @@
 **Андрій БОГДАНОВИЧ** — автор ідеї та розробник проєкту.
 
 * 🌐 Особистий сайт: [bogdanovych.org](https://www.bogdanovych.org/)
+* 🚀 Інші застосунки автора: [APP.bogdanovych.org](https://apps.bogdanovych.org)
 * 🆔 ORCID: [0009-0006-9045-5675](https://orcid.org/0009-0006-9045-5675)
