@@ -12,7 +12,7 @@ You can ask the assistant any question — it will analyze the website's article
 
 ### About the Author
 
-![Andrii Bogdanovych](/public/bogdanovych-900x900.jpg)
+![Andrii Bogdanovych](/public/images/bogdanovych-900x900.jpg)
 
 **Andrii BOGDANOVYCH** — project mastermind and developer.
 
