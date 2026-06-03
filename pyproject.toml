@@ -27,6 +27,12 @@ dev = [
     "ruff",
 ]
 
+[project.urls]
+"Homepage" = "https://crimea-is-ukraine.org/en/"
+"Web Application" = "https://chat.crimea-is-ukraine.org"
+"Repository" = "https://github.com/BogdanovychA/crimea-rag"
+"Bug Tracker" = "https://github.com/BogdanovychA/crimea-rag/issues"
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
