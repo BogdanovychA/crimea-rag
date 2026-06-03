@@ -16,7 +16,11 @@ only-text-supported = I can only work with text.
 
 kb-search-step-name = Knowledge base search
 
-kb-search-step-output = Found { $count } relevant fragments in the knowledge base.
+kb-search-step-output = { $count ->
+    [0]      No relevant fragments found in the knowledge base.
+    [one]    Found 1 relevant fragment in the knowledge base.
+   *[other]  Found { $count } relevant fragments in the knowledge base.
+}
 
 home-page = Home
 
@@ -30,4 +34,8 @@ sources-title = Sources
 
 unexpected-error = Unexpected error. Please contact the developer.
 
-request-too-large = Your request is too large. It will be shortened. Maximum length: { $max_query_length } characters.
+request-too-large =
+    Your request is too large. It will be shortened. Maximum length: { $max_query_length } { $max_query_length ->
+        [one]   character.
+       *[other] characters.
+    }
