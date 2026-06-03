@@ -78,3 +78,11 @@
 * `src/config/` — налаштування застосунку за допомогою Pydantic Settings.
 * `database/` — векторна база знань (Chroma DB).
 * `locales/` — файли локалізації (Fluent `.ftl` шаблони).
+
+---
+
+## Де спробувати?
+
+Ви можете перевірити роботу тут:
+
+- **Вебзастосунок**: [CHAT.crimea-is-ukraine.org](https://chat.crimea-is-ukraine.org/)
