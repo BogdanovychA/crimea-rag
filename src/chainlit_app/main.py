@@ -48,8 +48,11 @@ async def start():
 
     lang = utils.get_lang(context.session)
 
+    #  Ін'єкція для російськомовних браузерів :)
+    lang_list = ["ru", "uk"] if lang == "ru" else [lang]
+
     fluent = FluentManager(
-        locales=[lang],
+        locales=lang_list,
         locales_path=str(app.settings.locales_dir),
         default_locale=app.settings.default_locale,
     )
