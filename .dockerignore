@@ -13,6 +13,8 @@ migrations
 /.chainlit/translations/*
 !/.chainlit/translations/uk-UA.json
 !/.chainlit/translations/en-US.json
+!/.chainlit/translations/ru-RU.json
+!/.chainlit/translations/ru-UA.json
 #
 
 ### Git & Metadata
