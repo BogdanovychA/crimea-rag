@@ -12,5 +12,6 @@ if TYPE_CHECKING:
 
 def get_lang(session: Union["HTTPSession", "WebsocketSession"]):
     user_locale = getattr(session, "language", "en-US")
-    lang, *_ = user_locale.split("-")
+    user_locale = user_locale.strip().replace("_", "-").lower()
+    lang = user_locale.split("-")[0]
     return lang
