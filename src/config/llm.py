@@ -11,8 +11,8 @@ class Settings(BaseSettings):
     api_key: str = ""
     model: str = ""
     base_url: str | None = None
-    temperature: float = 0.7
-    max_tokens: int = 3000
+    temperature: float | int | None = None
+    max_tokens: int | None = None
 
     model_config = SettingsConfigDict(
         env_file=app.settings.env_file,
