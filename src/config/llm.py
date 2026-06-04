@@ -9,7 +9,7 @@ from models.llm import LLMName
 class Settings(BaseSettings):
     """Налаштування Lapathoniia"""
 
-    name: LLMName = ""
+    name: LLMName = LLMName.NONE
     api_key: str = ""
     model: str = ""
     base_url: str | None = None

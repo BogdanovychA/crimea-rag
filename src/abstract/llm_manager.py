@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, Type
@@ -33,7 +35,10 @@ class LLMManager(BaseLLMManager):
 
     @classmethod
     def get_manager_class(cls, llm_name: LLMName) -> Type[BaseChatModel]:
-
+        if llm_name not in cls._REGISTRY:
+            raise ValueError(
+                f"LLM provider '{llm_name}' is not registered. Please check LLM__NAME in your .env"
+            )
         return cls._REGISTRY[llm_name]
 
     def __init__(self):
