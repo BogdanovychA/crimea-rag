@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 
 from abc import ABC, abstractmethod
 
-from config import app, llm
+from config import llm
 from models.llm import LLMName
 
 
@@ -38,8 +38,7 @@ class LLMManager(BaseLLMManager):
 
     def __init__(self):
 
-        self.name = app.settings.llm_name
-
+        self.name = llm.settings.name
         self.api_key = llm.settings.api_key
         self.model = llm.settings.model
         self.base_url = llm.settings.base_url
@@ -48,10 +47,15 @@ class LLMManager(BaseLLMManager):
 
         manager_class = self.get_manager_class(self.name)
 
-        self.manager: BaseChatModel = manager_class(
-            api_key=self.api_key,
-            model=self.model,
-            base_url=self.base_url,
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-        )
+        kwargs = {
+            "api_key": self.api_key,
+            "model": self.model,
+        }
+        if self.base_url is not None:
+            kwargs["base_url"] = self.base_url
+        if self.temperature is not None:
+            kwargs["temperature"] = self.temperature
+        if self.max_tokens is not None:
+            kwargs["max_tokens"] = self.max_tokens
+
+        self.manager: BaseChatModel = manager_class(**kwargs)

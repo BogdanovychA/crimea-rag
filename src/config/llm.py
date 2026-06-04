@@ -3,11 +3,13 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from config import app
+from models.llm import LLMName
 
 
 class Settings(BaseSettings):
     """Налаштування Lapathoniia"""
 
+    name: LLMName = ""
     api_key: str = ""
     model: str = ""
     base_url: str | None = None
