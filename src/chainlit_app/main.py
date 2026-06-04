@@ -57,7 +57,18 @@ async def start():
         default_locale=app.settings.default_locale,
     )
 
-    prompt = ChatPromptTemplate.from_template(fluent.get("system-prompt"))
+    #  Ін'єкція для російськомовних браузерів :)
+    if lang == "ru":
+        hello_text_prefix = fluent.get("ru-browser")
+        hello_text_suffix = fluent.get("glory-to-ukraine")
+        system_prompt_prefix = fluent.get("putin-khuilo")
+    else:
+        hello_text_prefix = ""
+        hello_text_suffix = ""
+        system_prompt_prefix = ""
+
+    system_prompt = system_prompt_prefix + fluent.get("system-prompt")
+    prompt = ChatPromptTemplate.from_template(system_prompt)
 
     user_chain = prompt | llm.manager | StrOutputParser()
 
@@ -70,13 +81,8 @@ async def start():
 
     cl.user_session.set("box", box)
 
-    #  Ін'єкція для російськомовних браузерів :)
-    suffix = box.fluent.get("glory-to-ukraine") if box.lang == "ru" else ""
-
-    await cl.Message(
-        content=box.fluent.get("hello-text", llm_name=llm.name, llm_model=llm.model)
-        + suffix
-    ).send()
+    hello_text = box.fluent.get("hello-text", llm_name=llm.name, llm_model=llm.model)
+    await cl.Message(content=hello_text_prefix + hello_text + hello_text_suffix).send()
 
 
 @cl.on_message

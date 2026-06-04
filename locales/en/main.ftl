@@ -1,7 +1,5 @@
 hello-text =
-    Hello!
-    I am an AI from provider "{ $llm_name }", model: "{ $llm_model }".
-    You can ask me any question about the website ["Crimea is Ukraine"](https://crimea-is-ukraine.org/en/).
+    I am an AI from provider "{ $llm_name }", model: "{ $llm_model }". You can ask me any question about the website ["Crimea is Ukraine"](https://crimea-is-ukraine.org/en/).
     Attention! As of now, the agent is operating in test mode.
 
 kb-search-step-name = search on the "Crimea is Ukraine" website
