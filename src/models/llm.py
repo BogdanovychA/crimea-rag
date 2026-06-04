@@ -7,3 +7,4 @@ class LLMName(StrEnum):
     """Назва LLM провайдера"""
 
     LAPA = "Lapathoniia"
+    OPENAI = "OpenAI"

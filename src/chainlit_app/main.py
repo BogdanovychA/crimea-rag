@@ -26,6 +26,7 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 LLMManager.register(LLMName.LAPA, ChatOpenAI)
+LLMManager.register(LLMName.OPENAI, ChatOpenAI)
 
 
 embed = EmbedManager()
