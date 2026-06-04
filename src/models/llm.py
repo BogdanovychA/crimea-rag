@@ -8,3 +8,5 @@ class LLMName(StrEnum):
 
     LAPA = "Lapathoniia"
     OPENAI = "OpenAI"
+    ANTHROPIC = "Anthropic"
+    GOOGLE = "Google"

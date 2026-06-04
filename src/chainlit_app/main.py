@@ -7,15 +7,14 @@ from chainlit.context import context
 from fluent_manager import FluentManager
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_openai import ChatOpenAI
 
 from abstract.embed_manager import EmbedManager
 from abstract.llm_manager import LLMManager
+from chainlit_app import init_app
 from chainlit_app.utils import utils
 from chainlit_app.utils.models import PandorasBox
 from config import app, server
 from core.langchain_manager import format_docs
-from models.llm import LLMName
 
 logging.basicConfig(
     level=server.settings.logging_level,
@@ -25,9 +24,7 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
 
-LLMManager.register(LLMName.LAPA, ChatOpenAI)
-LLMManager.register(LLMName.OPENAI, ChatOpenAI)
-
+init_app.register_llm_managers()
 
 embed = EmbedManager()
 llm = LLMManager()
