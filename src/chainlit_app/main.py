@@ -121,7 +121,6 @@ async def main(message: cl.Message):
             await msg.stream_token(box.fluent.get("glory-to-ukraine"))
 
         # Створення інтерактивних джерел для інтерфейсу Chainlit
-        elements = []
         seen_sources = set()
         source_links = []
 
@@ -137,17 +136,6 @@ async def main(message: cl.Message):
 
             if clean_name not in seen_sources:
                 seen_sources.add(clean_name)
-                elements.append(
-                    cl.Text(
-                        name=f"📎 {clean_name}",
-                        content=box.fluent.get(
-                            "source-element-content",
-                            url=url,
-                            content=doc.page_content,
-                        ),
-                        display="page",
-                    )
-                )
                 source_links.append(f"[{clean_name}]({url})")
 
         # Додаємо список посилань в кінець повідомлення
@@ -156,8 +144,6 @@ async def main(message: cl.Message):
             msg.content += f"\n\n**{sources_title}:**\n" + "\n".join(
                 f"* {link}" for link in source_links
             )
-
-        msg.elements = elements
 
         await msg.update()
 
