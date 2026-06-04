@@ -11,6 +11,17 @@ if TYPE_CHECKING:
 
 
 from dataclasses import dataclass
+from enum import StrEnum
+
+
+class ChatHistoryKey(StrEnum):
+    ROLE = "role"
+    CONTENT = "content"
+
+
+class ChatHistoryValue(StrEnum):
+    AI = "ai"
+    USER = "user"
 
 
 @dataclass
@@ -21,3 +32,4 @@ class PandorasBox:
     chain: RunnableSerializable
     lang: str
     fluent: FluentManager
+    chat_history: list[dict[ChatHistoryKey, ChatHistoryValue | str]]

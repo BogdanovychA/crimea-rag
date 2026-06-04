@@ -12,7 +12,7 @@ from abstract.embed_manager import EmbedManager
 from abstract.llm_manager import LLMManager
 from chainlit_app import init_app
 from chainlit_app.utils import utils
-from chainlit_app.utils.models import PandorasBox
+from chainlit_app.utils.models import ChatHistoryKey, ChatHistoryValue, PandorasBox
 from config import app, server
 from core.langchain_manager import format_docs
 
@@ -75,6 +75,7 @@ async def start():
         chain=user_chain,
         lang=lang,
         fluent=fluent,
+        chat_history=[],
     )
 
     cl.user_session.set("box", box)
@@ -100,6 +101,11 @@ async def main(message: cl.Message):
         warning = box.fluent.get("request-too-large", max_query_length=max_query_length)
         await cl.Message(content=warning).send()
 
+    # Фіксуємо історію чату
+    box.chat_history.append(
+        {ChatHistoryKey.ROLE: ChatHistoryValue.USER, ChatHistoryKey.CONTENT: content}
+    )
+
     try:
         # Пошук у базі знань через крок chainlit
         async with cl.Step(name=box.fluent.get("kb-search-step-name")) as step:
@@ -119,6 +125,14 @@ async def main(message: cl.Message):
 
         if box.lang == "ru":  #  Ін'єкція для російськомовних браузерів :)
             await msg.stream_token(box.fluent.get("glory-to-ukraine"))
+
+        # Фіксуємо історію чату
+        box.chat_history.append(
+            {
+                ChatHistoryKey.ROLE: ChatHistoryValue.AI,
+                ChatHistoryKey.CONTENT: msg.content,
+            }
+        )
 
         # Створення інтерактивних джерел для інтерфейсу Chainlit
         seen_sources = set()
