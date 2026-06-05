@@ -19,3 +19,7 @@ source-element-content =
     { $content }
 
 sources-title = Sources
+
+contextualizing-query = refining the question according to the dialogue context
+
+standalone-query = Refined question: { $search_query }
