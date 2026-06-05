@@ -14,17 +14,20 @@ if TYPE_CHECKING:
 from langchain_core.messages import AIMessage, HumanMessage
 
 from chainlit_app.utils.models import ChatHistoryKey, ChatHistoryValue
+from config import app
 
 
 def get_lang(session: Union["HTTPSession", "WebsocketSession"]) -> str:
     """Визначає мову користувача на основі налаштувань сесії Chainlit."""
 
-    user_locale = getattr(session, "language", "en-US")
+    default_locale = app.settings.default_locale
+
+    user_locale = getattr(session, "language", default_locale)
     if not user_locale or not isinstance(user_locale, str):
-        user_locale = "en-US"
+        user_locale = default_locale
+
     user_locale = user_locale.strip().replace("_", "-").lower()
-    lang = user_locale.split("-")[0]
-    return lang
+    return user_locale.split("-")[0]
 
 
 def format_docs(docs: list[Document]) -> str:
