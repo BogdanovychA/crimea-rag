@@ -55,9 +55,11 @@ def initialize_box() -> PandorasBox:
 
     no_answer_text = fluent.get("no-answer-text")
     global_system_prompt_text = system_prompt_prefix + fluent.get(
-        "global-system-prompt", no_answer_text=no_answer_text
+        "global-system-prompt",
     )
-    global_user_prompt_text = fluent.get("global-user-prompt")
+    global_user_prompt_text = fluent.get(
+        "global-user-prompt", no_answer_text=no_answer_text
+    )
 
     global_prompt = ChatPromptTemplate.from_messages(
         [
