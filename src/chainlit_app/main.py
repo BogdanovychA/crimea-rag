@@ -5,7 +5,6 @@ import logging
 import chainlit as cl
 from chainlit.context import context
 from fluent_manager import FluentManager
-from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
@@ -123,35 +122,28 @@ async def main(message: cl.Message):
         warning = box.fluent.get("request-too-large", max_query_length=max_query_length)
         await cl.Message(content=warning).send()
 
-    formatted_history = []
-    for element in box.chat_history:
-        new_element = None
-        if element[ChatHistoryKey.ROLE] == ChatHistoryValue.USER:
-            new_element = HumanMessage(content=element[ChatHistoryKey.CONTENT])
-        elif element[ChatHistoryKey.ROLE] == ChatHistoryValue.AI:
-            new_element = AIMessage(content=element[ChatHistoryKey.CONTENT])
-        if new_element is not None:
-            formatted_history.append(new_element)
-
-    if formatted_history:
-        async with cl.Step(name=box.fluent.get("contextualizing-query")) as step:
-            search_query = await box.rephrase_chain.ainvoke(
-                {"formatted_history": formatted_history, "question": content}
-            )
-            step.output = box.fluent.get("standalone-query", search_query=search_query)
-    else:
-        search_query = content
-
-    # Обрізаємо уточнений запит, якщо завеликий.
-    search_query = search_query[:max_query_length]
-
     try:
-        # Пошук у базі знань через крок chainlit
+        formatted_history = utils.create_formatted_history(box.chat_history)
+        if formatted_history:
+            async with cl.Step(name=box.fluent.get("contextualizing-query")) as step:
+                search_query = await box.rephrase_chain.ainvoke(
+                    {"formatted_history": formatted_history, "question": content}
+                )
+                step.output = box.fluent.get(
+                    "standalone-query", search_query=search_query
+                )
+        else:
+            search_query = content
+
+        # Обрізаємо уточнений запит, якщо завеликий
+        search_query = search_query[:max_query_length]
+
+        # Пошук контексту
         async with cl.Step(name=box.fluent.get("kb-search-step-name")) as step:
             docs = await cl.make_async(box.retriever.invoke)(search_query)
             step.output = box.fluent.get("kb-search-step-output", count=len(docs))
 
-        # Формування контексту
+        # Форматування контексту
         formatted_context = utils.format_docs(docs)
 
         stream = box.chain.astream(
@@ -162,9 +154,9 @@ async def main(message: cl.Message):
             }
         )
 
+        # Стрімимо відповідь
         msg = cl.Message(content="")
         await msg.send()
-
         async for chunk in stream:
             await msg.stream_token(chunk)
 
@@ -175,11 +167,6 @@ async def main(message: cl.Message):
                 ChatHistoryKey.CONTENT: search_query,
             }
         )
-
-        if box.lang == "ru":  #  Ін'єкція для російськомовних браузерів :)
-            await msg.stream_token(box.fluent.get("glory-to-ukraine"))
-
-        # Фіксуємо історію чату
         box.chat_history.append(
             {
                 ChatHistoryKey.ROLE: ChatHistoryValue.AI,
@@ -187,25 +174,12 @@ async def main(message: cl.Message):
             }
         )
 
-        # Створення інтерактивних джерел для інтерфейсу Chainlit
-        seen_sources = set()
-        source_links = []
+        #  Ін'єкція для російськомовних браузерів :)
+        if box.lang == "ru":
+            await msg.stream_token(box.fluent.get("glory-to-ukraine"))
 
-        for doc in docs:
-            source = doc.metadata.get("source", "")
-            if not source:
-                continue
-            clean_name = source.replace("index.md", "").strip("/")
-            if not clean_name:
-                clean_name = box.fluent.get("home-page")
-
-            url = f"https://crimea-is-ukraine.org/{source.replace('index.md', '')}"
-
-            if clean_name not in seen_sources:
-                seen_sources.add(clean_name)
-                source_links.append(f"[{clean_name}]({url})")
-
-        # Додаємо список посилань в кінець повідомлення
+        # Додаємо джерела
+        source_links = utils.create_source_links_list(docs, fluent=box.fluent)
         if source_links:
             sources_title = box.fluent.get("sources-title")
             msg.content += f"\n\n**{sources_title}:**\n" + "\n".join(
