@@ -14,17 +14,13 @@ from abstract.llm_manager import LLMManager
 from chainlit_app import init_app
 from chainlit_app.utils import utils
 from chainlit_app.utils.models import ChatHistoryKey, ChatHistoryValue, PandorasBox
-from config import app, server
+from config import app
 
-logging.basicConfig(
-    level=server.settings.logging_level,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-)
-logging.getLogger("httpx").setLevel(logging.WARNING)
+# Налаштовуємо логування та реєструємо менеджери LLM
+init_app.configure_logging()
+init_app.register_llm_managers()
 
 logger = logging.getLogger(__name__)
-
-init_app.register_llm_managers()
 
 embed = EmbedManager()
 llm = LLMManager()

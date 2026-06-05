@@ -1,11 +1,23 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from langchain_anthropic import ChatAnthropic
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 
 from abstract.llm_manager import LLMManager
+from config import server
 from models.llm import LLMName
+
+
+def configure_logging():
+    """Налаштовує глобальне логування застосунку."""
+    logging.basicConfig(
+        level=server.settings.logging_level,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    )
+    logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
 def register_llm_managers():
