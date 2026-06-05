@@ -5,8 +5,9 @@ import logging
 import chainlit as cl
 from chainlit.context import context
 from fluent_manager import FluentManager
+from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 from abstract.embed_manager import EmbedManager
 from abstract.llm_manager import LLMManager
@@ -65,10 +66,32 @@ async def start():
         hello_text_suffix = ""
         system_prompt_prefix = ""
 
-    system_prompt = system_prompt_prefix + fluent.get("system-prompt")
-    prompt = ChatPromptTemplate.from_template(system_prompt)
+    global_system_prompt_text = system_prompt_prefix + fluent.get(
+        "global-system-prompt"
+    )
+    global_user_prompt_text = fluent.get("global-user-prompt")
 
-    user_chain = prompt | llm.manager | StrOutputParser()
+    global_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", global_system_prompt_text),
+            MessagesPlaceholder(variable_name="formatted_history"),
+            ("human", global_user_prompt_text),
+        ]
+    )
+
+    user_chain = global_prompt | llm.manager | StrOutputParser()
+
+    rephrase_system_prompt_text = fluent.get("rephrase-system-promp")
+    rephrase_user_prompt_text = fluent.get("rephrase-user-prompt")
+    rephrase_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", rephrase_system_prompt_text),
+            MessagesPlaceholder(variable_name="formatted_history"),
+            ("human", rephrase_user_prompt_text),
+        ]
+    )
+
+    rephrase_chain = rephrase_prompt | llm.manager | StrOutputParser()
 
     box = PandorasBox(
         retriever=embed.get_retriever(),
@@ -76,6 +99,7 @@ async def start():
         lang=lang,
         fluent=fluent,
         chat_history=[],
+        rephrase_chain=rephrase_chain,
     )
 
     cl.user_session.set("box", box)
@@ -95,33 +119,65 @@ async def main(message: cl.Message):
         await cl.Message(content=answer).send()
         return
 
+    # Обрізаємо запит, якщо завеликий.
     max_query_length = embed.max_query_length
     if len(content) > max_query_length:
         content = content[:max_query_length]
         warning = box.fluent.get("request-too-large", max_query_length=max_query_length)
         await cl.Message(content=warning).send()
 
-    # Фіксуємо історію чату
-    box.chat_history.append(
-        {ChatHistoryKey.ROLE: ChatHistoryValue.USER, ChatHistoryKey.CONTENT: content}
-    )
+    formatted_history = []
+    for element in box.chat_history:
+        new_element = None
+        if element[ChatHistoryKey.ROLE] == ChatHistoryValue.USER:
+            new_element = HumanMessage(content=element[ChatHistoryKey.CONTENT])
+        elif element[ChatHistoryKey.ROLE] == ChatHistoryValue.AI:
+            new_element = AIMessage(content=element[ChatHistoryKey.CONTENT])
+        if new_element is not None:
+            formatted_history.append(new_element)
+
+    if formatted_history:
+        async with cl.Step(name=box.fluent.get("contextualizing-query")) as step:
+            search_query = await box.rephrase_chain.ainvoke(
+                {"formatted_history": formatted_history, "question": content}
+            )
+            step.output = box.fluent.get("standalone-query", search_query=search_query)
+    else:
+        search_query = content
+
+    # Обрізаємо уточнений запит, якщо завеликий.
+    search_query = search_query[:max_query_length]
 
     try:
         # Пошук у базі знань через крок chainlit
         async with cl.Step(name=box.fluent.get("kb-search-step-name")) as step:
-            docs = await cl.make_async(box.retriever.invoke)(content)
+            docs = await cl.make_async(box.retriever.invoke)(search_query)
             step.output = box.fluent.get("kb-search-step-output", count=len(docs))
 
         # Формування контексту
         formatted_context = format_docs(docs)
 
-        stream = box.chain.astream({"context": formatted_context, "question": content})
+        stream = box.chain.astream(
+            {
+                "context": formatted_context,
+                "formatted_history": formatted_history,
+                "question": search_query,
+            }
+        )
 
         msg = cl.Message(content="")
         await msg.send()
 
         async for chunk in stream:
             await msg.stream_token(chunk)
+
+        # Фіксуємо історію чату
+        box.chat_history.append(
+            {
+                ChatHistoryKey.ROLE: ChatHistoryValue.USER,
+                ChatHistoryKey.CONTENT: search_query,
+            }
+        )
 
         if box.lang == "ru":  #  Ін'єкція для російськомовних браузерів :)
             await msg.stream_token(box.fluent.get("glory-to-ukraine"))

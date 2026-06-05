@@ -33,3 +33,4 @@ class PandorasBox:
     lang: str
     fluent: FluentManager
     chat_history: list[dict[ChatHistoryKey, ChatHistoryValue | str]]
+    rephrase_chain: RunnableSerializable

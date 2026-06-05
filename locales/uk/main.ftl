@@ -21,3 +21,7 @@ source-element-content =
     { $content }
 
 sources-title = Джерела
+
+contextualizing-query = уточнення запитання відповідно до контиексту діалогу
+
+standalone-query = Уточненне запитання: { $search_query }
