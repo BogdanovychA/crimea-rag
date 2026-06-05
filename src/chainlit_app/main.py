@@ -36,9 +36,8 @@ llm = LLMManager()
 #         return None
 
 
-@cl.on_chat_start
-async def start():
-    """Ініціалізує сесію чату Chainlit, створює ланцюжки RAG та конфігурує локалізацію."""
+def initialize_box() -> PandorasBox:
+    """Ініціалізує об'єкт PandorasBox для поточної сесії та зберігає його в user_session."""
 
     lang = utils.get_lang(context.session)
 
@@ -52,14 +51,7 @@ async def start():
     )
 
     #  Ін'єкція для російськомовних браузерів :)
-    if lang == "ru":
-        hello_text_prefix = fluent.get("ru-browser")
-        hello_text_suffix = fluent.get("glory-to-ukraine")
-        system_prompt_prefix = fluent.get("putin-khuilo")
-    else:
-        hello_text_prefix = ""
-        hello_text_suffix = ""
-        system_prompt_prefix = ""
+    system_prompt_prefix = fluent.get("putin-khuilo") if lang == "ru" else ""
 
     global_system_prompt_text = system_prompt_prefix + fluent.get(
         "global-system-prompt"
@@ -98,9 +90,25 @@ async def start():
     )
 
     cl.user_session.set("box", box)
+    return box
+
+
+@cl.on_chat_start
+async def start():
+    """Ініціалізує сесію чату Chainlit, створює ланцюжки RAG та конфігурує локалізацію."""
+    box = initialize_box()
+
+    # Ін'єкція для російськомовних браузерів :)
+    if box.lang == "ru":
+        hello_text_prefix = box.fluent.get("ru-browser")
+        hello_text_suffix = box.fluent.get("glory-to-ukraine")
+    else:
+        hello_text_prefix = ""
+        hello_text_suffix = ""
 
     hello_text = box.fluent.get("hello-text", llm_name=llm.name, llm_model=llm.model)
-    await cl.Message(content=hello_text_prefix + hello_text + hello_text_suffix).send()
+    hello_full_text = hello_text_prefix + hello_text + hello_text_suffix
+    await cl.Message(content=hello_full_text).send()
 
 
 @cl.on_message
@@ -108,6 +116,9 @@ async def main(message: cl.Message):
     """Обробляє вхідні повідомлення користувача та повертає відповідь від RAG-асистента."""
 
     box = cl.user_session.get("box")
+    if not box:
+        box = initialize_box()
+
     content = message.content
 
     if not content or not isinstance(content, str):

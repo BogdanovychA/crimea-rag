@@ -20,6 +20,8 @@ def get_lang(session: Union["HTTPSession", "WebsocketSession"]) -> str:
     """Визначає мову користувача на основі налаштувань сесії Chainlit."""
 
     user_locale = getattr(session, "language", "en-US")
+    if not user_locale or not isinstance(user_locale, str):
+        user_locale = "en-US"
     user_locale = user_locale.strip().replace("_", "-").lower()
     lang = user_locale.split("-")[0]
     return lang
@@ -44,12 +46,22 @@ def create_source_links_list(docs: list[Document], fluent: FluentManager) -> lis
         source = doc.metadata.get("source", "")
         if not source:
             continue
-        clean_name = source.replace("index.md", "").strip("/")
 
+        # Нормалізуємо шляхи для сумісності та чистих URL
+        normalized_source = source.replace("\\", "/").strip("/")
+
+        if normalized_source.endswith("index.md"):
+            clean_path = normalized_source[:-8]  # видаляємо "index.md"
+        elif normalized_source.endswith(".md"):
+            clean_path = normalized_source[:-3] + "/"  # замінюємо ".md" на "/"
+        else:
+            clean_path = normalized_source
+
+        clean_name = clean_path.strip("/")
         if not clean_name:
             clean_name = fluent.get("home-page")
 
-        url = f"https://crimea-is-ukraine.org/{source.replace('index.md', '')}"
+        url = f"https://crimea-is-ukraine.org/{clean_path}"
 
         if clean_name not in seen_sources:
             seen_sources.add(clean_name)
