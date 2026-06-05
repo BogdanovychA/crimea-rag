@@ -15,7 +15,6 @@ from chainlit_app import init_app
 from chainlit_app.utils import utils
 from chainlit_app.utils.models import ChatHistoryKey, ChatHistoryValue, PandorasBox
 from config import app, server
-from core.langchain_manager import format_docs
 
 logging.basicConfig(
     level=server.settings.logging_level,
@@ -157,7 +156,7 @@ async def main(message: cl.Message):
             step.output = box.fluent.get("kb-search-step-output", count=len(docs))
 
         # Формування контексту
-        formatted_context = format_docs(docs)
+        formatted_context = utils.format_docs(docs)
 
         stream = box.chain.astream(
             {
