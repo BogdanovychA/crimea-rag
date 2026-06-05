@@ -14,27 +14,34 @@ from models.llm import LLMName
 
 
 class BaseLLMManager(ABC):
+    """Абстрактний менеджер для мовних моделей (LLM)."""
+
     @classmethod
     @abstractmethod
     def register(cls, llm_name: LLMName, chat_model_class: Type[BaseChatModel]) -> None:
+        """Реєструє клас клієнта для конкретного провайдера LLM."""
         pass
 
     @classmethod
     @abstractmethod
     def get_manager_class(cls, llm_name: LLMName) -> Type[BaseChatModel]:
+        """Повертає зареєстрований клас клієнта LLM."""
         pass
 
 
 class LLMManager(BaseLLMManager):
+    """Менеджер для ініціалізації та управління підключенням до LLM."""
+
     _REGISTRY: dict[LLMName, Type[BaseChatModel]] = {}
 
     @classmethod
     def register(cls, llm_name: LLMName, chat_model_class: Type[BaseChatModel]) -> None:
-
+        """Додає клас провайдера LLM до реєстру."""
         cls._REGISTRY[llm_name] = chat_model_class
 
     @classmethod
     def get_manager_class(cls, llm_name: LLMName) -> Type[BaseChatModel]:
+        """Отримує клас провайдера LLM або викликає ValueError, якщо він не знайдений."""
         if llm_name not in cls._REGISTRY:
             raise ValueError(
                 f"LLM provider '{llm_name}' is not registered. Please check LLM__NAME in your .env"
@@ -42,7 +49,7 @@ class LLMManager(BaseLLMManager):
         return cls._REGISTRY[llm_name]
 
     def __init__(self):
-
+        """Ініціалізує менеджер LLM та створює об'єкт клієнта моделі."""
         self.name = llm.settings.name
         self.api_key = llm.settings.api_key
         self.model = llm.settings.model

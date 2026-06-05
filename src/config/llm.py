@@ -7,7 +7,7 @@ from models.llm import LLMName
 
 
 class Settings(BaseSettings):
-    """Налаштування Lapathoniia"""
+    """Налаштування LLM провайдерів."""
 
     name: LLMName = LLMName.NONE
     api_key: str = ""

@@ -44,6 +44,7 @@ llm = LLMManager()
 
 @cl.on_chat_start
 async def start():
+    """Ініціалізує сесію чату Chainlit, створює ланцюжки RAG та конфігурує локалізацію."""
 
     lang = utils.get_lang(context.session)
 
@@ -110,6 +111,7 @@ async def start():
 
 @cl.on_message
 async def main(message: cl.Message):
+    """Обробляє вхідні повідомлення користувача та повертає відповідь від RAG-асистента."""
 
     box = cl.user_session.get("box")
     content = message.content

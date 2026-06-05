@@ -9,6 +9,7 @@ from models.llm import LLMName
 
 
 def register_llm_managers():
+    """Реєструє класи клієнтів LLM для підтримуваних провайдерів."""
     LLMManager.register(LLMName.LAPA, ChatOpenAI)
     LLMManager.register(LLMName.OPENAI, ChatOpenAI)
     LLMManager.register(LLMName.ANTHROPIC, ChatAnthropic)

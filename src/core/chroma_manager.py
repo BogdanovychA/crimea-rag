@@ -16,10 +16,12 @@ from langchain_ollama import OllamaEmbeddings
 
 
 class ChromaManager:
+    """Менеджер для взаємодії з векторною базою даних Chroma DB."""
+
     def __init__(
         self, model: str, base_url: str, persist_directory: Path, k: int
     ) -> None:
-
+        """Ініціалізує клієнт Chroma DB з моделлю ембеддингів."""
         self.model = model
         self.base_url = base_url
         self.persist_directory = str(persist_directory)
@@ -36,13 +38,16 @@ class ChromaManager:
         )
 
     def get_retriever(self, k: int | None = None) -> VectorStoreRetriever:
+        """Повертає об'єкт ретривера для пошуку документів."""
         k = k or self.k
         return self.vector_db.as_retriever(search_kwargs={"k": k})
 
     def similarity_search(self, query: str) -> list[Document]:
+        """Виконує пошук подібних документів за вектором запиту."""
         return self.vector_db.similarity_search(query, k=self.k)
 
     def max_marginal_relevance_search(self, query: str) -> list[Document]:
+        """Виконує MMR-пошук для зменшення дублювання в результатах."""
         return self.vector_db.max_marginal_relevance_search(query, k=self.k)
 
 

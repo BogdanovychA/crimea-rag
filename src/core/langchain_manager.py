@@ -14,6 +14,7 @@ from langchain_core.runnables import RunnablePassthrough
 
 
 def format_docs(docs: list[Document]):
+    """Форматує знайдені документи у вигляді текстового блоку з джерелами."""
     return "\n\n".join(
         f"--- Source: {doc.metadata.get('source')} ---\nDocument: {doc.page_content}"
         for doc in docs
@@ -23,7 +24,7 @@ def format_docs(docs: list[Document]):
 def get_rag_chain(
     system_prompt: str, retriever: VectorStoreRetriever, llm: BaseChatModel
 ) -> RunnableSequence:
-
+    """Створює базовий RAG-ланцюжок LangChain."""
     prompt = ChatPromptTemplate.from_template(system_prompt)
 
     return (

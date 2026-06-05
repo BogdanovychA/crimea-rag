@@ -11,6 +11,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    """Загальні налаштування застосунку."""
+
     # name: str = meta["name"]
     # version: str = meta["version"]
     # license: str = meta["License-Expression"]

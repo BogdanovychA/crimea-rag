@@ -6,6 +6,8 @@ from config import app
 
 
 class Settings(BaseSettings):
+    """Налаштування векторних ембеддингів."""
+
     model: str = ""
     url: str = ""
     port: int | None = None
