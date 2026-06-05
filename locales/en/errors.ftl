@@ -7,3 +7,5 @@ request-too-large =
         [one]   character.
        *[other] characters.
     }
+
+no-answer-text = Unfortunately, no answer to this question was found on the website

@@ -53,8 +53,9 @@ def initialize_box() -> PandorasBox:
     #  Ін'єкція для російськомовних браузерів :)
     system_prompt_prefix = fluent.get("putin-khuilo") if lang == "ru" else ""
 
+    no_answer_text = fluent.get("no-answer-text")
     global_system_prompt_text = system_prompt_prefix + fluent.get(
-        "global-system-prompt"
+        "global-system-prompt", no_answer_text=no_answer_text
     )
     global_user_prompt_text = fluent.get("global-user-prompt")
 
@@ -190,12 +191,14 @@ async def main(message: cl.Message):
             await msg.stream_token(box.fluent.get("glory-to-ukraine"))
 
         # Додаємо джерела
-        source_links = utils.create_source_links_list(docs, fluent=box.fluent)
-        if source_links:
-            sources_title = box.fluent.get("sources-title")
-            msg.content += f"\n\n**{sources_title}:**\n" + "\n".join(
-                f"* {link}" for link in source_links
-            )
+        no_answer_text = box.fluent.get("no-answer-text")
+        if no_answer_text.lower() not in msg.content.lower():
+            source_links = utils.create_source_links_list(docs, fluent=box.fluent)
+            if source_links:
+                sources_title = box.fluent.get("sources-title")
+                msg.content += f"\n\n**{sources_title}:**\n" + "\n".join(
+                    f"* {link}" for link in source_links
+                )
 
         await msg.update()
 
