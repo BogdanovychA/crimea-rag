@@ -81,7 +81,7 @@ async def start():
 
     user_chain = global_prompt | llm.manager | StrOutputParser()
 
-    rephrase_system_prompt_text = fluent.get("rephrase-system-promp")
+    rephrase_system_prompt_text = fluent.get("rephrase-system-prompt")
     rephrase_user_prompt_text = fluent.get("rephrase-user-prompt")
     rephrase_prompt = ChatPromptTemplate.from_messages(
         [

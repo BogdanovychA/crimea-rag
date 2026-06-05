@@ -22,6 +22,6 @@ source-element-content =
 
 sources-title = Джерела
 
-contextualizing-query = уточнення запитання відповідно до контиексту діалогу
+contextualizing-query = уточнення запитання відповідно до контексту діалогу
 
-standalone-query = Уточненне запитання: { $search_query }
+standalone-query = Уточнене запитання: { $search_query }
