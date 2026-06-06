@@ -7,9 +7,9 @@ global-system-prompt =
     {context}
 
 global-user-prompt =
-    User question: {question}
+    User message: {question}
 
-    Only in case the context is completely missing, return this phrase exactly as is, with no changes: { $no_answer_text }
+    If you have nothing to say at all, THEN AND ONLY THEN return this phrase exactly as is, with no changes: { $no_answer_text }
     After that, add a phrase to keep the conversation going, based on the previous context.
 
 rephrase-system-prompt =
