@@ -15,5 +15,6 @@ services:
       - ./database:/app/database
       - ./public:/app/public
       - ./locales:/app/locales
+      - ./.chainlit/config.toml:/app/.chainlit/config.toml
     ports:
       - "8001:8000"
