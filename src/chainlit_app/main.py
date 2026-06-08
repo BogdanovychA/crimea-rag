@@ -7,16 +7,17 @@ from chainlit.context import context
 from fluent_manager import FluentManager
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables import RunnableConfig
 
 from abstract.embed_manager import EmbedManager
 from abstract.llm_manager import LLMManager
 from chainlit_app import init_app
 from chainlit_app.utils import utils
 from chainlit_app.utils.models import ChatHistoryKey, ChatHistoryValue, PandorasBox
-from chainlit_app.utils.rag_logger import rag_logger_config
 from config import app
 from config import llm as llm_cfg
 from config import llm_fallback as llm_f6k_cfg
+from core.callbacks import RAGErrorLogger
 from models.llm import LLMName
 
 # Налаштовуємо логування та реєструємо менеджери LLM
@@ -142,7 +143,7 @@ async def main(message: cl.Message):
             async with cl.Step(name=box.fluent.get("contextualizing-query")) as step:
                 search_query = await box.rephrase_chain.ainvoke(
                     {"formatted_history": formatted_history, "question": content},
-                    config=rag_logger_config,
+                    config=RunnableConfig(callbacks=[RAGErrorLogger()]),
                 )
                 step.output = box.fluent.get(
                     "standalone-query", search_query=search_query
@@ -167,7 +168,7 @@ async def main(message: cl.Message):
                 "formatted_history": formatted_history,
                 "question": search_query,
             },
-            config=rag_logger_config,
+            config=RunnableConfig(callbacks=[RAGErrorLogger()]),
         )
 
         # Стрімимо відповідь

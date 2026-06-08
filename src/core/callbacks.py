@@ -15,6 +15,3 @@ class RAGErrorLogger(AsyncCallbackHandler):
             kwargs,
             exc_info=error,
         )
-
-
-rag_logger_config = {"callbacks": [RAGErrorLogger()]}
