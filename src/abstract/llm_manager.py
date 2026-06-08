@@ -9,7 +9,6 @@ if TYPE_CHECKING:
 
 from abc import ABC, abstractmethod
 
-from config import llm
 from models.llm import LLMName
 
 
@@ -48,26 +47,36 @@ class LLMManager(BaseLLMManager):
             )
         return cls._REGISTRY[llm_name]
 
-    def __init__(self):
+    def __init__(
+        self,
+        name: LLMName,
+        api_key: str,
+        model: str,
+        base_url: str | None = None,
+        temperature: float | int | None = None,
+        max_tokens: int | None = None,
+        timeout: float | int | None = None,
+        max_retries: int | None = None,
+    ) -> None:
         """Ініціалізує менеджер LLM та створює об'єкт клієнта моделі."""
-        self.name = llm.settings.name
-        self.api_key = llm.settings.api_key
-        self.model = llm.settings.model
-        self.base_url = llm.settings.base_url
-        self.temperature = llm.settings.temperature
-        self.max_tokens = llm.settings.max_tokens
+        self.name = name
+        self.model = model
 
         manager_class = self.get_manager_class(self.name)
 
-        kwargs = {
-            "api_key": self.api_key,
+        kwargs: dict[str, str | float | int] = {
+            "api_key": api_key,
             "model": self.model,
         }
-        if self.base_url is not None:
-            kwargs["base_url"] = self.base_url
-        if self.temperature is not None:
-            kwargs["temperature"] = self.temperature
-        if self.max_tokens is not None:
-            kwargs["max_tokens"] = self.max_tokens
+        if base_url is not None and base_url.strip() != "":
+            kwargs["base_url"] = base_url
+        if temperature is not None:
+            kwargs["temperature"] = temperature
+        if max_tokens is not None:
+            kwargs["max_tokens"] = max_tokens
+        if max_retries is not None:
+            kwargs["max_retries"] = max_retries
+        if timeout is not None:
+            kwargs["timeout"] = timeout
 
         self.manager: BaseChatModel = manager_class(**kwargs)

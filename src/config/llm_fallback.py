@@ -15,11 +15,11 @@ class Settings(BaseSettings):
     base_url: str | None = None
     temperature: float | int | None = None
     max_tokens: int | None = None
-    timeout: float | int = 10
+    max_retries: int = 1
 
     model_config = SettingsConfigDict(
         env_file=app.settings.env_file,
-        env_prefix="LLM__",
+        env_prefix="LLM_FALLBACK__",
         extra="ignore",
     )
 

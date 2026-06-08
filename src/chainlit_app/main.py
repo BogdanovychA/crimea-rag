@@ -13,7 +13,11 @@ from abstract.llm_manager import LLMManager
 from chainlit_app import init_app
 from chainlit_app.utils import utils
 from chainlit_app.utils.models import ChatHistoryKey, ChatHistoryValue, PandorasBox
+from chainlit_app.utils.rag_logger import rag_logger_config
 from config import app
+from config import llm as llm_cfg
+from config import llm_fallback as llm_f6k_cfg
+from models.llm import LLMName
 
 # Налаштовуємо логування та реєструємо менеджери LLM
 init_app.configure_logging()
@@ -22,18 +26,14 @@ init_app.register_llm_managers()
 logger = logging.getLogger(__name__)
 
 embed = EmbedManager()
-llm = LLMManager()
 
-# @cl.password_auth_callback
-# def auth_callback(username: str, password: str):
-#     # Fetch the user matching username from your database
-#     # and compare the hashed password with the value stored in the database
-#     if (username, password) == ("admin", "admin"):
-#         return cl.User(
-#             identifier="admin", metadata={"role": "admin", "provider": "credentials"}
-#         )
-#     else:
-#         return None
+llm = LLMManager(**llm_cfg.settings.model_dump())
+
+if llm_f6k_cfg.settings.name != LLMName.NONE:
+    llm_fallback = LLMManager(**llm_f6k_cfg.settings.model_dump())
+    smart_llm = llm.manager.with_fallbacks([llm_fallback.manager])
+else:
+    smart_llm = llm.manager
 
 
 def initialize_box() -> PandorasBox:
@@ -69,7 +69,7 @@ def initialize_box() -> PandorasBox:
         ]
     )
 
-    user_chain = global_prompt | llm.manager | StrOutputParser()
+    user_chain = global_prompt | smart_llm | StrOutputParser()
 
     rephrase_system_prompt_text = fluent.get("rephrase-system-prompt")
     rephrase_user_prompt_text = fluent.get("rephrase-user-prompt")
@@ -81,7 +81,7 @@ def initialize_box() -> PandorasBox:
         ]
     )
 
-    rephrase_chain = rephrase_prompt | llm.manager | StrOutputParser()
+    rephrase_chain = rephrase_prompt | smart_llm | StrOutputParser()
 
     box = PandorasBox(
         retriever=embed.get_retriever(),
@@ -141,7 +141,8 @@ async def main(message: cl.Message):
         if formatted_history:
             async with cl.Step(name=box.fluent.get("contextualizing-query")) as step:
                 search_query = await box.rephrase_chain.ainvoke(
-                    {"formatted_history": formatted_history, "question": content}
+                    {"formatted_history": formatted_history, "question": content},
+                    config=rag_logger_config,
                 )
                 step.output = box.fluent.get(
                     "standalone-query", search_query=search_query
@@ -165,7 +166,8 @@ async def main(message: cl.Message):
                 "context": formatted_context,
                 "formatted_history": formatted_history,
                 "question": search_query,
-            }
+            },
+            config=rag_logger_config,
         )
 
         # Стрімимо відповідь
