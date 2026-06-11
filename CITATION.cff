@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Bogdanovych"
+    given-names: "Andrii"
+    orcid: "https://orcid.org/0009-0006-9045-5675"
+title: "crimea-rag"
+version: 0.4.0
+date-released: 2026-06-08
+abstract: "A minimalist RAG assistant for quick search and answering questions regarding the occupation of Crimea, based on materials from the 'Crimea is Ukraine' website."
+repository-code: "https://github.com/BogdanovychA/crimea-rag"
+license: MIT

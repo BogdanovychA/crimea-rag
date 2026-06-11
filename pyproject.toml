@@ -1,7 +1,7 @@
 [project]
 name = "crimea-rag"
 version = "0.4.1"
-description = "Crimea is Ukraine RAG"
+description = "A minimalist RAG assistant for quick search and answering questions regarding the occupation of Crimea, based on materials from the 'Crimea is Ukraine' website."
 readme = "README.md"
 requires-python = ">=3.12"
 authors = [
