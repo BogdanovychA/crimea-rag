@@ -1,0 +1,12 @@
+{
+  "name": "Крим — це Україна: ШІ асистент",
+  "team": "Andrii Bogdanovych",
+  "description_uk": "Мінімалістичний RAG асистент для швидкого пошуку та відповідей на запитання щодо окупації Криму на основі матеріалів сайту 'Крим — це Україна'.",
+  "description_en": "A minimalist RAG assistant for quick search and answering questions regarding the occupation of Crimea, based on materials from the 'Crimea is Ukraine' website.",
+  "website": "https://crimea-is-ukraine.org",
+  "demo": "https://chat.crimea-is-ukraine.org",
+  "github": "https://github.com/BogdanovychA/crimea-rag",
+  "logo": "public/logo_dark.png",
+  "cover": "public/images/cover.png",
+  "contact_email": "a@bogdanovych.org"
+}
