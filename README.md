@@ -1,6 +1,6 @@
 # Крим — це Україна: ШІ асистент (Crimea is Ukraine RAG) 🇺🇦
 
-Мінімалістичний RAG (Retrieval-Augmented Generation) асистент на базі **Chainlit** та **LangChain** для швидкого пошуку та відповідей на запитання щодо окупації Криму на основі матеріалів проєкту ["Крим — це Україна"](https://crimea-is-ukraine.org/).
+Мінімалістичний RAG (Retrieval-Augmented Generation) асистент на базі **Chainlit** та **LangChain** для швидкого пошуку та відповідей на запитання щодо окупації Криму на основі матеріалів проєкту [«Крим — це Україна»](https://crimea-is-ukraine.org/).
 
 ---
 
