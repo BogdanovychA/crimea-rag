@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     temperature: float | int | None = None
     max_tokens: int | None = None
     timeout: float | int = 10
+    max_retries: int = 3
 
     model_config = SettingsConfigDict(
         env_file=app.settings.env_file,
