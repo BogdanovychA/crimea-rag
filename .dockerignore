@@ -1,6 +1,7 @@
 # Projects
 /database/*
 !/database/.gitkeep
+TODO.md
 #
 migrations
 # chainlit
