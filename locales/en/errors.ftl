@@ -7,5 +7,3 @@ request-too-large =
         [one]   character.
        *[other] characters.
     }
-
-no-answer-text = Unfortunately, no direct answer to this question was found on the website

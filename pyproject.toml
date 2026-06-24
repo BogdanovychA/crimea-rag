@@ -11,14 +11,14 @@ license = "MIT"
 dependencies = [
     "chainlit==2.11.1",
     "fluent-manager==1.0.2",
-    "langchain-anthropic==1.4.6",
+    "langchain-anthropic==1.4.7",
     "langchain-chroma==1.1.0",
-    "langchain-core==1.4.7",
+    "langchain-core==1.4.8",
     "langchain-google-genai==4.2.5",
     "langchain-ollama==1.1.0",
-    "langchain-openai==1.3.2",
+    "langchain-openai==1.3.3",
     "pydantic==2.13.4",
-    "pydantic-settings==2.14.1",
+    "pydantic-settings==2.14.2",
 ]
 [dependency-groups]
 dev = [
