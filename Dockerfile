@@ -15,8 +15,7 @@ FROM python:3.12-slim-bookworm
 
 ENV TZ=Europe/Kyiv \
     PATH="/app/.venv/bin:$PATH" \
-    PYTHONUNBUFFERED=1 \
-    FLET_FORCE_WEB_SERVER=true
+    PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
