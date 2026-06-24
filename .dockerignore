@@ -1,7 +1,6 @@
 # Projects
 /database/*
 !/database/.gitkeep
-TODO.md
 #
 migrations
 # chainlit
@@ -43,6 +42,7 @@ migrations
 /CLAUDE.md
 /GEMINI.md
 /AGENTS.md
+/TODO.md
 
 ### Agents
 .agents/
