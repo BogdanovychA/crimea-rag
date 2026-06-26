@@ -20,6 +20,8 @@
 ### Agents
 #.agents/
 .antigravitycli/
+.opencode/
+.claude/
 TODO.md
 
 # OS

@@ -47,6 +47,8 @@ migrations
 ### Agents
 .agents/
 .antigravitycli/
+.opencode/
+.claude/
 
 # OS
 *.tmp
