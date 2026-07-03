@@ -4,7 +4,7 @@ authors:
   - family-names: "Bogdanovych"
     given-names: "Andrii"
     orcid: "https://orcid.org/0009-0006-9045-5675"
-title: "crimea-rag"
+title: "Crimea is Ukraine RAG"
 version: 0.4.3
 date-released: 2026-06-26
 abstract: "A minimalist RAG assistant for quick search and answering questions regarding the occupation of Crimea, based on materials from the 'Crimea is Ukraine' website."
