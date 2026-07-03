@@ -5,8 +5,8 @@ authors:
     given-names: "Andrii"
     orcid: "https://orcid.org/0009-0006-9045-5675"
 title: "crimea-rag"
-version: 0.4.0
-date-released: 2026-06-08
+version: 0.4.3
+date-released: 2026-06-26
 abstract: "A minimalist RAG assistant for quick search and answering questions regarding the occupation of Crimea, based on materials from the 'Crimea is Ukraine' website."
 repository-code: "https://github.com/BogdanovychA/crimea-rag"
 license: MIT
