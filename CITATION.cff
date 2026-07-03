@@ -10,3 +10,4 @@ date-released: 2026-06-26
 abstract: "A minimalist RAG assistant for quick search and answering questions regarding the occupation of Crimea, based on materials from the 'Crimea is Ukraine' website."
 repository-code: "https://github.com/BogdanovychA/crimea-rag"
 license: MIT
+doi: 10.5281/zenodo.21154437

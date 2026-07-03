@@ -33,6 +33,7 @@ dev = [
 "Homepage" = "https://crimea-is-ukraine.org/en/"
 "Web Application" = "https://chat.crimea-is-ukraine.org"
 "Repository" = "https://github.com/BogdanovychA/crimea-rag"
+"DOI" = "https://doi.org/10.5281/zenodo.21154437"
 "Bug Tracker" = "https://github.com/BogdanovychA/crimea-rag/issues"
 
 [build-system]

@@ -1,5 +1,10 @@
 # Крим — це Україна: ШІ асистент (Crimea is Ukraine RAG) 🇺🇦
 
+![Made in Ukraine](https://img.shields.io/badge/Made%20in-Ukraine-blue?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjgwMCI%2BCjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjgwMCIgZmlsbD0iIzAwNTdCNyIvPgo8cmVjdCB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI0MDAiIHk9IjQwMCIgZmlsbD0iI0ZGRDcwMCIvPgo8L3N2Zz4%3D)
+
+[![DOI](https://zenodo.org/badge/1253420524.svg)](https://doi.org/10.5281/zenodo.21154436)
+![GitHub License](https://img.shields.io/github/license/BogdanovychA/crimea-rag?logoColor=grey&color=blue)
+
 Мінімалістичний RAG (Retrieval-Augmented Generation) асистент на базі **Chainlit** та **LangChain** для швидкого пошуку та відповідей на запитання щодо окупації Криму на основі матеріалів проєкту [«Крим — це Україна»](https://crimea-is-ukraine.org/).
 
 ---
