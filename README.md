@@ -7,6 +7,8 @@
 
 Мінімалістичний RAG (Retrieval-Augmented Generation) асистент на базі **Chainlit** та **LangChain** для швидкого пошуку та відповідей на запитання щодо окупації Криму на основі матеріалів проєкту [«Крим — це Україна»](https://crimea-is-ukraine.org/).
 
+> Читайте [детальніше про цей проєкт в блозі](https://www.bogdanovych.org/blog/shi-agenty-vs-kod-rukamy/).
+
 ---
 
 ## 🛠 Технологічний стек та можливості
