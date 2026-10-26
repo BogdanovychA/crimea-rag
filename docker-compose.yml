@@ -6,7 +6,7 @@ services:
     image: chainlit_crimea-rag:${DOCKER__APP_VERSION}
     pull_policy: missing
     container_name: chat-crimea_is_ukraine-org
-    restart: always
+    restart: unless-stopped
     env_file:
       - .env
     volumes:
@@ -19,7 +19,7 @@ services:
 
   cloudflared:
 #    image: cloudflare/cloudflared:latest
-    image: cloudflare/cloudflared:2026.7.3
+    image: cloudflare/cloudflared:2026.10.1
     container_name: chat-crimea_is_ukraine-org-cloudflared
     restart: unless-stopped
     command: tunnel --no-autoupdate run --token ${CLOUDFLARE__TUNNEL_TOKEN}
