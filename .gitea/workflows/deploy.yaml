@@ -12,10 +12,10 @@ jobs:
       - name: Deploy on host via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SING_SSH_HOST }}
-          username: ${{ secrets.SING_SSH_USER }}
-          key: ${{ secrets.SING_SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SING_SSH_PORT }}
+          host: ${{ secrets.F101_SSH_HOST }}
+          username: ${{ secrets.F101_SSH_USER }}
+          key: ${{ secrets.F101_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.F101_SSH_PORT }}
           script: |
             cd /home/ab/www/chat.crimea-is-ukraine.org
             git pull origin main
